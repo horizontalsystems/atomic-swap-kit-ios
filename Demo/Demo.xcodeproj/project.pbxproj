@@ -1,0 +1,547 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D053FF4222DC9FCC002982C6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FF4122DC9FCC002982C6 /* ViewController.swift */; };
+		D053FF4722DC9FCC002982C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D053FF4622DC9FCC002982C6 /* Assets.xcassets */; };
+		D053FF5322DCA04C002982C6 /* AtomicSwapBitcoinProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D053FF5222DCA04C002982C6 /* AtomicSwapBitcoinProvider.framework */; };
+		D053FF5522DCA04C002982C6 /* AtomicSwapCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D053FF5422DCA04C002982C6 /* AtomicSwapCore.framework */; };
+		D053FF5722DCA0A4002982C6 /* Pods_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D053FF5622DCA0A4002982C6 /* Pods_Demo.framework */; };
+		D053FF5922DCA1D6002982C6 /* AtomicSwapCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D053FF5822DCA1D6002982C6 /* AtomicSwapCore.framework */; };
+		D053FF5A22DCA1D6002982C6 /* AtomicSwapCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D053FF5822DCA1D6002982C6 /* AtomicSwapCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D053FF5C22DCA1D6002982C6 /* AtomicSwapBitcoinProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D053FF5B22DCA1D6002982C6 /* AtomicSwapBitcoinProvider.framework */; };
+		D053FF5D22DCA1D6002982C6 /* AtomicSwapBitcoinProvider.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D053FF5B22DCA1D6002982C6 /* AtomicSwapBitcoinProvider.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D053FF7D22DCA2C8002982C6 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FF6022DCA2C7002982C6 /* Manager.swift */; };
+		D053FF7E22DCA2C8002982C6 /* Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FF6122DCA2C7002982C6 /* Signal.swift */; };
+		D053FF7F22DCA2C8002982C6 /* PlainSwapCodec.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FF6222DCA2C7002982C6 /* PlainSwapCodec.swift */; };
+		D053FF8022DCA2C8002982C6 /* TransactionRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FF6322DCA2C7002982C6 /* TransactionRecord.swift */; };
+		D053FF8122DCA2C8002982C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FF6422DCA2C7002982C6 /* AppDelegate.swift */; };
+		D053FF8222DCA2C8002982C6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D053FF6522DCA2C7002982C6 /* LaunchScreen.xib */; };
+		D053FF8322DCA2C8002982C6 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FF6622DCA2C8002982C6 /* Configuration.swift */; };
+		D053FF8422DCA2C8002982C6 /* BitcoinCashAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FF6822DCA2C8002982C6 /* BitcoinCashAdapter.swift */; };
+		D053FF8622DCA2C8002982C6 /* BitcoinAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FF6A22DCA2C8002982C6 /* BitcoinAdapter.swift */; };
+		D053FF8722DCA2C8002982C6 /* BaseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FF6B22DCA2C8002982C6 /* BaseAdapter.swift */; };
+		D053FF8822DCA2C8002982C6 /* SendController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D053FF6D22DCA2C8002982C6 /* SendController.xib */; };
+		D053FF8922DCA2C8002982C6 /* BalanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FF6E22DCA2C8002982C6 /* BalanceController.swift */; };
+		D053FF8A22DCA2C8002982C6 /* TransactionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D053FF7022DCA2C8002982C6 /* TransactionCell.xib */; };
+		D053FF8B22DCA2C8002982C6 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FF7122DCA2C8002982C6 /* TransactionCell.swift */; };
+		D053FF8C22DCA2C8002982C6 /* BalanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FF7222DCA2C8002982C6 /* BalanceCell.swift */; };
+		D053FF8D22DCA2C8002982C6 /* BalanceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D053FF7322DCA2C8002982C6 /* BalanceCell.xib */; };
+		D053FF8E22DCA2C8002982C6 /* ReceiveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FF7422DCA2C8002982C6 /* ReceiveController.swift */; };
+		D053FF8F22DCA2C8002982C6 /* WordsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FF7522DCA2C8002982C6 /* WordsController.swift */; };
+		D053FF9022DCA2C8002982C6 /* SwapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FF7622DCA2C8002982C6 /* SwapController.swift */; };
+		D053FF9122DCA2C8002982C6 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FF7722DCA2C8002982C6 /* MainController.swift */; };
+		D053FF9222DCA2C8002982C6 /* WordsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D053FF7822DCA2C8002982C6 /* WordsController.xib */; };
+		D053FF9322DCA2C8002982C6 /* TransactionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FF7922DCA2C8002982C6 /* TransactionsController.swift */; };
+		D053FF9422DCA2C8002982C6 /* SwapController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D053FF7A22DCA2C8002982C6 /* SwapController.xib */; };
+		D053FF9522DCA2C8002982C6 /* SendController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FF7B22DCA2C8002982C6 /* SendController.swift */; };
+		D053FF9622DCA2C8002982C6 /* ReceiveController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D053FF7C22DCA2C8002982C6 /* ReceiveController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D053FF5E22DCA1D6002982C6 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D053FF5D22DCA1D6002982C6 /* AtomicSwapBitcoinProvider.framework in Embed Frameworks */,
+				D053FF5A22DCA1D6002982C6 /* AtomicSwapCore.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		03A01452094FD962A5A18D22 /* Pods-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.debug.xcconfig"; path = "Target Support Files/Pods-Demo/Pods-Demo.debug.xcconfig"; sourceTree = "<group>"; };
+		9A9B80CAD01312EED9D799DA /* Pods-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.release.xcconfig"; path = "Target Support Files/Pods-Demo/Pods-Demo.release.xcconfig"; sourceTree = "<group>"; };
+		D053FF3C22DC9FCC002982C6 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D053FF4122DC9FCC002982C6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D053FF4622DC9FCC002982C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D053FF4B22DC9FCC002982C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D053FF5222DCA04C002982C6 /* AtomicSwapBitcoinProvider.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AtomicSwapBitcoinProvider.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D053FF5422DCA04C002982C6 /* AtomicSwapCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AtomicSwapCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D053FF5622DCA0A4002982C6 /* Pods_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D053FF5822DCA1D6002982C6 /* AtomicSwapCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AtomicSwapCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D053FF5B22DCA1D6002982C6 /* AtomicSwapBitcoinProvider.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AtomicSwapBitcoinProvider.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D053FF6022DCA2C7002982C6 /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
+		D053FF6122DCA2C7002982C6 /* Signal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signal.swift; sourceTree = "<group>"; };
+		D053FF6222DCA2C7002982C6 /* PlainSwapCodec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlainSwapCodec.swift; sourceTree = "<group>"; };
+		D053FF6322DCA2C7002982C6 /* TransactionRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionRecord.swift; sourceTree = "<group>"; };
+		D053FF6422DCA2C7002982C6 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = "../../../bitcoin-kit-ios/Demo/Demo/AppDelegate.swift"; sourceTree = "<group>"; };
+		D053FF6522DCA2C7002982C6 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
+		D053FF6622DCA2C8002982C6 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		D053FF6822DCA2C8002982C6 /* BitcoinCashAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitcoinCashAdapter.swift; sourceTree = "<group>"; };
+		D053FF6A22DCA2C8002982C6 /* BitcoinAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitcoinAdapter.swift; sourceTree = "<group>"; };
+		D053FF6B22DCA2C8002982C6 /* BaseAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseAdapter.swift; sourceTree = "<group>"; };
+		D053FF6D22DCA2C8002982C6 /* SendController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendController.xib; sourceTree = "<group>"; };
+		D053FF6E22DCA2C8002982C6 /* BalanceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalanceController.swift; sourceTree = "<group>"; };
+		D053FF7022DCA2C8002982C6 /* TransactionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionCell.xib; sourceTree = "<group>"; };
+		D053FF7122DCA2C8002982C6 /* TransactionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
+		D053FF7222DCA2C8002982C6 /* BalanceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalanceCell.swift; sourceTree = "<group>"; };
+		D053FF7322DCA2C8002982C6 /* BalanceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BalanceCell.xib; sourceTree = "<group>"; };
+		D053FF7422DCA2C8002982C6 /* ReceiveController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveController.swift; sourceTree = "<group>"; };
+		D053FF7522DCA2C8002982C6 /* WordsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordsController.swift; sourceTree = "<group>"; };
+		D053FF7622DCA2C8002982C6 /* SwapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwapController.swift; sourceTree = "<group>"; };
+		D053FF7722DCA2C8002982C6 /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
+		D053FF7822DCA2C8002982C6 /* WordsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WordsController.xib; sourceTree = "<group>"; };
+		D053FF7922DCA2C8002982C6 /* TransactionsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsController.swift; sourceTree = "<group>"; };
+		D053FF7A22DCA2C8002982C6 /* SwapController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SwapController.xib; sourceTree = "<group>"; };
+		D053FF7B22DCA2C8002982C6 /* SendController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendController.swift; sourceTree = "<group>"; };
+		D053FF7C22DCA2C8002982C6 /* ReceiveController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReceiveController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D053FF3922DC9FCC002982C6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D053FF5722DCA0A4002982C6 /* Pods_Demo.framework in Frameworks */,
+				D053FF5922DCA1D6002982C6 /* AtomicSwapCore.framework in Frameworks */,
+				D053FF5322DCA04C002982C6 /* AtomicSwapBitcoinProvider.framework in Frameworks */,
+				D053FF5C22DCA1D6002982C6 /* AtomicSwapBitcoinProvider.framework in Frameworks */,
+				D053FF5522DCA04C002982C6 /* AtomicSwapCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D053FF3322DC9FCC002982C6 = {
+			isa = PBXGroup;
+			children = (
+				D053FF5B22DCA1D6002982C6 /* AtomicSwapBitcoinProvider.framework */,
+				D053FF5822DCA1D6002982C6 /* AtomicSwapCore.framework */,
+				D053FF3E22DC9FCC002982C6 /* Demo */,
+				D053FF3D22DC9FCC002982C6 /* Products */,
+				D053FF5122DCA04C002982C6 /* Frameworks */,
+				FAA73B866539F643D9D0FC3E /* Pods */,
+			);
+			sourceTree = "<group>";
+		};
+		D053FF3D22DC9FCC002982C6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D053FF3C22DC9FCC002982C6 /* Demo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D053FF3E22DC9FCC002982C6 /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				D053FF6722DCA2C8002982C6 /* Adapters */,
+				D053FF6C22DCA2C8002982C6 /* Controllers */,
+				D053FF5F22DCA2C7002982C6 /* Core */,
+				D053FF6422DCA2C7002982C6 /* AppDelegate.swift */,
+				D053FF6622DCA2C8002982C6 /* Configuration.swift */,
+				D053FF6522DCA2C7002982C6 /* LaunchScreen.xib */,
+				D053FF4122DC9FCC002982C6 /* ViewController.swift */,
+				D053FF4622DC9FCC002982C6 /* Assets.xcassets */,
+				D053FF4B22DC9FCC002982C6 /* Info.plist */,
+			);
+			path = Demo;
+			sourceTree = "<group>";
+		};
+		D053FF5122DCA04C002982C6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D053FF5622DCA0A4002982C6 /* Pods_Demo.framework */,
+				D053FF5222DCA04C002982C6 /* AtomicSwapBitcoinProvider.framework */,
+				D053FF5422DCA04C002982C6 /* AtomicSwapCore.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D053FF5F22DCA2C7002982C6 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				D053FF6022DCA2C7002982C6 /* Manager.swift */,
+				D053FF6122DCA2C7002982C6 /* Signal.swift */,
+				D053FF6222DCA2C7002982C6 /* PlainSwapCodec.swift */,
+				D053FF6322DCA2C7002982C6 /* TransactionRecord.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		D053FF6722DCA2C8002982C6 /* Adapters */ = {
+			isa = PBXGroup;
+			children = (
+				D053FF6822DCA2C8002982C6 /* BitcoinCashAdapter.swift */,
+				D053FF6A22DCA2C8002982C6 /* BitcoinAdapter.swift */,
+				D053FF6B22DCA2C8002982C6 /* BaseAdapter.swift */,
+			);
+			path = Adapters;
+			sourceTree = "<group>";
+		};
+		D053FF6C22DCA2C8002982C6 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D053FF6F22DCA2C8002982C6 /* Cells */,
+				D053FF6D22DCA2C8002982C6 /* SendController.xib */,
+				D053FF6E22DCA2C8002982C6 /* BalanceController.swift */,
+				D053FF7422DCA2C8002982C6 /* ReceiveController.swift */,
+				D053FF7522DCA2C8002982C6 /* WordsController.swift */,
+				D053FF7622DCA2C8002982C6 /* SwapController.swift */,
+				D053FF7722DCA2C8002982C6 /* MainController.swift */,
+				D053FF7822DCA2C8002982C6 /* WordsController.xib */,
+				D053FF7922DCA2C8002982C6 /* TransactionsController.swift */,
+				D053FF7A22DCA2C8002982C6 /* SwapController.xib */,
+				D053FF7B22DCA2C8002982C6 /* SendController.swift */,
+				D053FF7C22DCA2C8002982C6 /* ReceiveController.xib */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		D053FF6F22DCA2C8002982C6 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				D053FF7022DCA2C8002982C6 /* TransactionCell.xib */,
+				D053FF7122DCA2C8002982C6 /* TransactionCell.swift */,
+				D053FF7222DCA2C8002982C6 /* BalanceCell.swift */,
+				D053FF7322DCA2C8002982C6 /* BalanceCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		FAA73B866539F643D9D0FC3E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				03A01452094FD962A5A18D22 /* Pods-Demo.debug.xcconfig */,
+				9A9B80CAD01312EED9D799DA /* Pods-Demo.release.xcconfig */,
+			);
+			name = Pods;
+			path = ../Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D053FF3B22DC9FCC002982C6 /* Demo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D053FF4E22DC9FCC002982C6 /* Build configuration list for PBXNativeTarget "Demo" */;
+			buildPhases = (
+				A17C800A23A193E581C551B6 /* [CP] Check Pods Manifest.lock */,
+				D053FF3822DC9FCC002982C6 /* Sources */,
+				D053FF3922DC9FCC002982C6 /* Frameworks */,
+				D053FF3A22DC9FCC002982C6 /* Resources */,
+				D053FF5E22DCA1D6002982C6 /* Embed Frameworks */,
+				FBA90CA24F56F8DB3BDD8DA5 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Demo;
+			productName = Demo;
+			productReference = D053FF3C22DC9FCC002982C6 /* Demo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D053FF3422DC9FCC002982C6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1020;
+				LastUpgradeCheck = 1020;
+				ORGANIZATIONNAME = "Horizontal Systems";
+				TargetAttributes = {
+					D053FF3B22DC9FCC002982C6 = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
+				};
+			};
+			buildConfigurationList = D053FF3722DC9FCC002982C6 /* Build configuration list for PBXProject "Demo" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D053FF3322DC9FCC002982C6;
+			productRefGroup = D053FF3D22DC9FCC002982C6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D053FF3B22DC9FCC002982C6 /* Demo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D053FF3A22DC9FCC002982C6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D053FF8222DCA2C8002982C6 /* LaunchScreen.xib in Resources */,
+				D053FF8A22DCA2C8002982C6 /* TransactionCell.xib in Resources */,
+				D053FF8D22DCA2C8002982C6 /* BalanceCell.xib in Resources */,
+				D053FF4722DC9FCC002982C6 /* Assets.xcassets in Resources */,
+				D053FF8822DCA2C8002982C6 /* SendController.xib in Resources */,
+				D053FF9222DCA2C8002982C6 /* WordsController.xib in Resources */,
+				D053FF9422DCA2C8002982C6 /* SwapController.xib in Resources */,
+				D053FF9622DCA2C8002982C6 /* ReceiveController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A17C800A23A193E581C551B6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Demo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FBA90CA24F56F8DB3BDD8DA5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Demo/Pods-Demo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Demo/Pods-Demo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Demo/Pods-Demo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D053FF3822DC9FCC002982C6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D053FF8B22DCA2C8002982C6 /* TransactionCell.swift in Sources */,
+				D053FF4222DC9FCC002982C6 /* ViewController.swift in Sources */,
+				D053FF8422DCA2C8002982C6 /* BitcoinCashAdapter.swift in Sources */,
+				D053FF9522DCA2C8002982C6 /* SendController.swift in Sources */,
+				D053FF8F22DCA2C8002982C6 /* WordsController.swift in Sources */,
+				D053FF7E22DCA2C8002982C6 /* Signal.swift in Sources */,
+				D053FF7F22DCA2C8002982C6 /* PlainSwapCodec.swift in Sources */,
+				D053FF9122DCA2C8002982C6 /* MainController.swift in Sources */,
+				D053FF8722DCA2C8002982C6 /* BaseAdapter.swift in Sources */,
+				D053FF7D22DCA2C8002982C6 /* Manager.swift in Sources */,
+				D053FF8C22DCA2C8002982C6 /* BalanceCell.swift in Sources */,
+				D053FF8122DCA2C8002982C6 /* AppDelegate.swift in Sources */,
+				D053FF9022DCA2C8002982C6 /* SwapController.swift in Sources */,
+				D053FF8E22DCA2C8002982C6 /* ReceiveController.swift in Sources */,
+				D053FF8322DCA2C8002982C6 /* Configuration.swift in Sources */,
+				D053FF8622DCA2C8002982C6 /* BitcoinAdapter.swift in Sources */,
+				D053FF9322DCA2C8002982C6 /* TransactionsController.swift in Sources */,
+				D053FF8922DCA2C8002982C6 /* BalanceController.swift in Sources */,
+				D053FF8022DCA2C8002982C6 /* TransactionRecord.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		D053FF4C22DC9FCC002982C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D053FF4D22DC9FCC002982C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D053FF4F22DC9FCC002982C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 03A01452094FD962A5A18D22 /* Pods-Demo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HC4MCAXJ66;
+				INFOPLIST_FILE = Demo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.horizontalsystems.Demo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D053FF5022DC9FCC002982C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A9B80CAD01312EED9D799DA /* Pods-Demo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HC4MCAXJ66;
+				INFOPLIST_FILE = Demo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.horizontalsystems.Demo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D053FF3722DC9FCC002982C6 /* Build configuration list for PBXProject "Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D053FF4C22DC9FCC002982C6 /* Debug */,
+				D053FF4D22DC9FCC002982C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D053FF4E22DC9FCC002982C6 /* Build configuration list for PBXNativeTarget "Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D053FF4F22DC9FCC002982C6 /* Debug */,
+				D053FF5022DC9FCC002982C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D053FF3422DC9FCC002982C6 /* Project object */;
+}
