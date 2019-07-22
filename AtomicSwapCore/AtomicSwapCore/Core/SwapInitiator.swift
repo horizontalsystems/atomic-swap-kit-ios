@@ -10,65 +10,18 @@ class SwapInitiator {
 
     private let initiatorBlockchain: ISwapBlockchain
     private let responderBlockchain: ISwapBlockchain
-    private let storage: SwapStorage
+    private let storage: ISwapStorage
     var swap: Swap
 
-    init(initiatorBlockchain: ISwapBlockchain, responderBlockchain: ISwapBlockchain, storage: SwapStorage, swap: Swap) {
+    init(initiatorBlockchain: ISwapBlockchain, responderBlockchain: ISwapBlockchain, storage: ISwapStorage, swap: Swap) {
         self.initiatorBlockchain = initiatorBlockchain
         self.responderBlockchain = responderBlockchain
         self.storage = storage
         self.swap = swap
     }
 
-    static func generate(initiatorBlockchain: ISwapBlockchain, responderBlockchain: ISwapBlockchain, storage: SwapStorage, rate: Double, amount: Double) throws -> SwapInitiator {
-        let id = RandomHelper.shared.randomBytes(length: 32)
-        let secret = RandomHelper.shared.randomBytes(length: 32)
-        let refundPublicKey = try initiatorBlockchain.changePublicKey()
-        let redeemPublicKey = try responderBlockchain.receivePublicKey()
-
-        let swap = Swap(
-                id: id.reduce("") { $0 + String(format: "%02x", $1) }, state: Swap.State.requested,
-                initiator: true, initiatorCoinCode: initiatorBlockchain.coinCode, responderCoinCode: responderBlockchain.coinCode,
-                rate: rate, amount: amount,
-                secretHash: CryptoKit.sha256(secret), secret: secret,
-                initiatorTimestamp: nil, responderTimestamp: nil,
-                refundPKId: refundPublicKey.id, redeemPKId: redeemPublicKey.id,
-                initiatorRefundPKH: refundPublicKey.keyHash, initiatorRedeemPKH: redeemPublicKey.keyHash,
-                responderRefundPKH: nil, responderRedeemPKH: nil
-        )
-
-        storage.add(swap: swap)
-
-        return SwapInitiator(initiatorBlockchain: initiatorBlockchain, responderBlockchain: responderBlockchain, storage: storage, swap: swap)
-    }
-
-    func onResponderAgree() throws {
-        try bail()
-        try watchResponderBail()
-    }
-
-    func triggerWatchers() throws {
-        switch swap.state {
-        case .initiatorBailed:
-            try watchResponderBail()
-        default: ()
-        }
-    }
-
-    func triggerTxSends() throws {
-        switch swap.state {
-        case .responderBailed:
-            guard let txDetails = swap.responderBailTransaction else {
-                throw SwapInitiatorError.bailTransactionCouldNotBeRestored
-            }
-
-            try redeem(from: try responderBlockchain.bailTransaction(from: txDetails))
-        default: ()
-        }
-    }
-
     private func bail() throws {
-        guard swap.state == .requested else {
+        guard swap.state == .responded else {
             throw SwapInitiatorError.bailTransactionAlreadySent
         }
 
@@ -96,7 +49,7 @@ class SwapInitiator {
         )
     }
 
-    private func redeem(from bailTransaction: IBailTransaction) throws {
+    private func redeem() throws {
         guard swap.state == .responderBailed else {
             throw SwapInitiatorError.redeemTransactionAlreadySent
         }
@@ -106,6 +59,11 @@ class SwapInitiator {
             throw SwapInitiatorError.swapNotAgreed
         }
 
+        guard let txDetails = swap.responderBailTransaction else {
+            throw SwapInitiatorError.bailTransactionCouldNotBeRestored
+        }
+
+        let bailTransaction = try responderBlockchain.bailTransaction(from: txDetails)
         try responderBlockchain.sendRedeemTransaction(
                 from: bailTransaction,
                 withRedeemKeyHash: swap.initiatorRedeemPKH, redeemPKId: redeemPKId, refundKeyHash: responderRefundPKH,
@@ -114,6 +72,31 @@ class SwapInitiator {
         
         swap.state = .initiatorRedeemed
         storage.update(swap: swap)
+    }
+
+}
+
+extension SwapInitiator: ISwapInitiator {
+
+    func proceedNext() throws {
+        switch swap.state {
+        case .responded:
+            try start()
+        case .initiatorBailed:
+            try watchResponderBail()
+        case .responderBailed:
+            try redeem()
+        default: ()
+        }
+    }
+
+    func start() throws {
+        guard swap.state == .responded else {
+            return
+        }
+
+        try bail()
+        try watchResponderBail()
     }
 
 }
@@ -133,7 +116,7 @@ extension SwapInitiator: ISwapBlockchainDelegate {
         swap.responderBailTransaction = responderBailTransaction
         storage.update(swap: swap)
 
-        try? redeem(from: bailTransaction)
+        try? redeem()
     }
 
     func onRedeemTransactionReceived(redeemTransaction: IRedeemTransaction) {

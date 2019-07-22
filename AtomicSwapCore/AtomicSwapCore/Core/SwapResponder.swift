@@ -10,56 +10,14 @@ class SwapResponder {
 
     private let initiatorBlockchain: ISwapBlockchain
     private let responderBlockchain: ISwapBlockchain
-    private let storage: SwapStorage
+    private let storage: ISwapStorage
     var swap: Swap
 
-    init(initiatorBlockchain: ISwapBlockchain, responderBlockchain: ISwapBlockchain, storage: SwapStorage, swap: Swap) {
+    init(initiatorBlockchain: ISwapBlockchain, responderBlockchain: ISwapBlockchain, storage: ISwapStorage, swap: Swap) {
         self.initiatorBlockchain = initiatorBlockchain
         self.responderBlockchain = responderBlockchain
         self.storage = storage
         self.swap = swap
-    }
-
-    func respond() throws {
-        let refundPKH = try responderBlockchain.changePublicKey()
-        let redeemPKH = try initiatorBlockchain.receivePublicKey()
-        let initiatorTimestamp = Date(timeInterval: 2 * 24 * 60 * 60, since: Date())
-        let responderTimestamp = Date(timeInterval: 1 * 24 * 60 * 60, since: initiatorTimestamp)
-
-        swap.state = Swap.State.responded
-        swap.refundPKId = refundPKH.id
-        swap.redeemPKId = redeemPKH.id
-        swap.responderRefundPKH = refundPKH.keyHash
-        swap.responderRedeemPKH = redeemPKH.keyHash
-        swap.initiatorTimestamp = Int(initiatorTimestamp.timeIntervalSince1970)
-        swap.responderTimestamp = Int(responderTimestamp.timeIntervalSince1970)
-
-        storage.add(swap: swap)
-        try watchInitiatorBail()
-    }
-
-    func triggerWatchers() throws {
-        switch swap.state {
-        case .responded:
-            try watchInitiatorBail()
-        case .responderBailed:
-            guard let txDetails = swap.responderBailTransaction else {
-                throw SwapResponderError.bailTransactionCouldNotBeRestored
-            }
-
-            try watchInitiatorRedeem(from: try responderBlockchain.bailTransaction(from: txDetails))
-        default: ()
-        }
-    }
-
-    func triggerTxSends() throws {
-        switch swap.state {
-        case .initiatorBailed:
-            try bail()
-        case .initiatorRedeemed:
-            try redeem()
-        default: ()
-        }
     }
 
     private func bail() throws -> IBailTransaction {
@@ -94,8 +52,13 @@ class SwapResponder {
         )
     }
 
-    private func watchInitiatorRedeem(from transaction: IBailTransaction) throws {
-        try responderBlockchain.watchRedeemTransaction(fromTransaction: transaction)
+    private func watchInitiatorRedeem() throws {
+        guard let txDetails = swap.responderBailTransaction else {
+            throw SwapResponderError.bailTransactionCouldNotBeRestored
+        }
+
+        let bailTransaction = try responderBlockchain.bailTransaction(from: txDetails)
+        try responderBlockchain.watchRedeemTransaction(fromTransaction: bailTransaction)
     }
 
     private func redeem() throws {
@@ -121,6 +84,33 @@ class SwapResponder {
 
 }
 
+extension SwapResponder: ISwapResponder {
+
+    func proceedNext() throws {
+        switch swap.state {
+        case .responded:
+            try watchInitiatorBail()
+        case .initiatorBailed:
+            _ = try bail()
+            try watchInitiatorRedeem()
+        case .responderBailed:
+            try watchInitiatorRedeem()
+        case .initiatorRedeemed:
+            try redeem()
+        default: ()
+        }
+    }
+
+    func start() throws {
+        guard swap.state == .responded else {
+            return
+        }
+
+        try watchInitiatorBail()
+    }
+
+}
+
 extension SwapResponder: ISwapBlockchainDelegate {
 
     func onBailTransactionReceived(bailTransaction: IBailTransaction) {
@@ -132,11 +122,11 @@ extension SwapResponder: ISwapBlockchainDelegate {
         swap.initiatorBailTransaction = try? initiatorBlockchain.data(from: bailTransaction)
         storage.update(swap: swap)
 
-        guard let responderBailTransaction = try? bail() else {
+        guard let _ = try? bail() else {
             return
         }
 
-        try? watchInitiatorRedeem(from: responderBailTransaction)
+        try? watchInitiatorRedeem()
     }
 
     func onRedeemTransactionReceived(redeemTransaction: IRedeemTransaction) {

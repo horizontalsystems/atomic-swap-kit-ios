@@ -2,45 +2,51 @@ import Foundation
 import HSCryptoKit.Private
 
 public class SwapKit {
-    public static let shared = SwapKit()
-
     enum SwapError : Error {
         case couldNotGenerateSwap
         case swapNotFound
     }
 
-    private let storage: SwapStorage
-    private let factory: SwapFactory
+    private let storage: ISwapStorage
+    private let factory: ISwapFactory
+    private let logger: Logger?
 
-    private var initiators = [String: SwapInitiator]()
-    private var responders = [String: SwapResponder]()
+    private var initiators = [String: ISwapInitiator]()
+    private var responders = [String: ISwapResponder]()
 
-    init() {
-        storage = SwapStorage()
-        factory = SwapFactory(storage: storage)
+    init(storage: ISwapStorage, factory: ISwapFactory, logger: Logger? = nil) {
+        self.storage = storage
+        self.factory = factory
+        self.logger = logger
     }
 
-    public func triggerWatchers() throws {
-        for swap in storage.allSwaps() {
-            if swap.initiator {
-                let initiator = try factory.swapInitiator(swap: swap)
-                try initiator.triggerWatchers()
-                initiators[initiator.swap.id] = initiator
-            } else {
-                let responder = try factory.swapResponder(swap: swap)
-                try responder.triggerWatchers()
-                responders[responder.swap.id] = responder
-            }
-        }
-    }
-
-    public func triggerTxSends() throws {
+    public func proceedNext() throws {
         for (_, initiator) in initiators {
-            try initiator.triggerTxSends()
+            try initiator.proceedNext()
         }
 
         for (_, responder) in responders {
-            try responder.triggerTxSends()
+            try responder.proceedNext()
+        }
+    }
+
+    public func load() {
+        for swap in storage.swapsInProgress() {
+            if swap.initiator {
+                do {
+                    let initiator = try factory.swapInitiator(swap: swap)
+                    initiators[initiator.swap.id] = initiator
+                } catch {
+                    logger?.error(error)
+                }
+            } else {
+                do {
+                    let responder = try factory.swapResponder(swap: swap)
+                    responders[responder.swap.id] = responder
+                } catch {
+                    logger?.error(error)
+                }
+            }
         }
     }
 
@@ -52,53 +58,50 @@ public class SwapKit {
         factory.unregister(coin: coin)
     }
 
-    public func createSwapRequest(haveCoinCode: String, wantCoinCode: String, rate: Double, amount: Double) throws -> RequestMessage {
-        let swapInitiator = try factory.swapInitiator(initiatorCoinCode: haveCoinCode, responderCoinCode: wantCoinCode, rate: rate, amount: amount)
-        let swap = swapInitiator.swap
+    public func createSwapRequest(haveCoinCode: String, wantCoinCode: String, rate: Double, amount: Double) throws -> SwapRequest {
+        let swap = try factory.swap(initiatorCoinCode: haveCoinCode, responderCoinCode: wantCoinCode, rate: rate, amount: amount)
 
-        initiators[swap.id] = swapInitiator
-
-        return RequestMessage(
-                id: swap.id, initiatorCoinCode: swap.initiatorCoinCode, responderCoinCode: swap.responderCoinCode,
-                rate: swap.rate, amount: swap.amount, secretHash: swap.secretHash,
-                initiatorRefundPKH: swap.initiatorRefundPKH, initiatorRedeemPKH: swap.initiatorRedeemPKH
-        )
+        return SwapRequest(swap: swap)
     }
 
-    public func acceptSwapAndCreateResponse(request: RequestMessage) throws -> ResponseMessage {
-        let requestedSwap = Swap(
-                id: request.id, state: Swap.State.requested, initiator: false,
-                initiatorCoinCode: request.initiatorCoinCode, responderCoinCode: request.responderCoinCode,
+    public func createSwapResponse(from request: SwapRequest) throws -> SwapResponse {
+        let swap = try factory.swap(
+                fromRequestId: request.id, initiatorCoinCode: request.initiatorCoinCode, responderCoinCode: request.responderCoinCode,
                 rate: request.rate, amount: request.amount,
-                secretHash: request.secretHash, secret: nil, initiatorTimestamp: nil, responderTimestamp: nil,
-                refundPKId: nil, redeemPKId: nil,
                 initiatorRefundPKH: request.initiatorRefundPKH, initiatorRedeemPKH: request.initiatorRedeemPKH,
-                responderRefundPKH: nil, responderRedeemPKH: nil
+                secretHash: request.secretHash
         )
 
-        let swapResponder = try factory.swapResponder(swap: requestedSwap)
-        try swapResponder.respond()
-        let swap = swapResponder.swap
+        let swapResponder = try factory.swapResponder(swap: swap)
+        try swapResponder.start()
 
         responders[swap.id] = swapResponder
 
-        return ResponseMessage(
-                id: swap.id, initiatorTimestamp: swap.initiatorTimestamp!, responderTimestamp: swap.responderTimestamp!,
-                responderRefundPKH: swap.responderRefundPKH!, responderRedeemPKH: swap.responderRedeemPKH!
-        )
+        return SwapResponse(swap: swap)
     }
 
-    public func initiateSwap(from response: ResponseMessage) throws {
-        guard let swapInitiator = initiators[response.id] else {
-            throw SwapError.swapNotFound
-        }
+    public func initiateSwap(from response: SwapResponse) throws {
+        let swap = try factory.swap(
+                fromResponseId: response.id,
+                responderRedeemPKH: response.responderRedeemPKH, responderRefundPKH: response.responderRefundPKH,
+                initiatorTimestamp: response.initiatorTimestamp, responderTimestamp: response.responderTimestamp
+        )
 
-        swapInitiator.swap.responderRedeemPKH = response.responderRedeemPKH
-        swapInitiator.swap.responderRefundPKH = response.responderRefundPKH
-        swapInitiator.swap.initiatorTimestamp = response.initiatorTimestamp
-        swapInitiator.swap.responderTimestamp = response.responderTimestamp
+        let swapInitiator = try factory.swapInitiator(swap: swap)
+        try swapInitiator.start()
 
-        try swapInitiator.onResponderAgree()
+        initiators[swap.id] = swapInitiator
+    }
+
+}
+
+extension SwapKit {
+
+    public static func instance(logger: Logger = Logger(minLogLevel: .error)) -> SwapKit {
+        let storage = SwapStorage()
+        let factory = SwapFactory(storage: storage)
+
+        return SwapKit(storage: storage, factory: factory, logger: logger)
     }
 
 }

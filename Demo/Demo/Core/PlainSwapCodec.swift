@@ -7,11 +7,11 @@ class PlainSwapCodec {
         case wrongResponse
     }
 
-    func getString(from message: RequestMessage) -> String {
-        return "\(message.id)|\(message.initiatorCoinCode)|\(message.responderCoinCode)|\(message.rate)|\(message.amount)|\(message.secretHash.hex)|\(message.initiatorRefundPKH.hex)|\(message.initiatorRedeemPKH.hex)"
+    func getString(from message: SwapRequest) -> String {
+        return "\(message.id)|\(message.initiatorCoinCode)|\(message.responderCoinCode)|\(message.rate)|\(message.amount)|\(message.secretHash.hex)|\(message.initiatorRedeemPKH.hex)|\(message.initiatorRefundPKH.hex)"
     }
 
-    func getRequest(from str: String) throws -> RequestMessage {
+    func getRequest(from str: String) throws -> SwapRequest {
         let parts = str.split(separator: "|").map { String($0) }
 
         guard parts.count == 8 else {
@@ -28,17 +28,17 @@ class PlainSwapCodec {
             throw PlainSwapCodecError.wrongRequest
         }
 
-        return RequestMessage(
+        return SwapRequest(
                 id: id, initiatorCoinCode: initiatorCoinCode, responderCoinCode: responderCoinCode,
                 rate: rate, amount: amount, secretHash: secretHash,
                 initiatorRefundPKH: initiatorRefundPKH, initiatorRedeemPKH: initiatorRedeemPKH)
     }
 
-    func getString(from response: ResponseMessage) -> String {
-        return "\(response.id)|\(response.initiatorTimestamp)|\(response.responderTimestamp)|\(response.responderRefundPKH.hex)|\(response.responderRedeemPKH.hex)"
+    func getString(from response: SwapResponse) -> String {
+        return "\(response.id)|\(response.initiatorTimestamp)|\(response.responderTimestamp)|\(response.responderRedeemPKH.hex)|\(response.responderRefundPKH.hex)"
     }
 
-    func getResponse(from str: String) throws -> ResponseMessage {
+    func getResponse(from str: String) throws -> SwapResponse {
         let parts = str.split(separator: "|").map { String($0) }
 
         guard parts.count == 5 else {
@@ -52,7 +52,7 @@ class PlainSwapCodec {
             throw PlainSwapCodecError.wrongResponse
         }
 
-        return ResponseMessage(
+        return SwapResponse(
                 id: id, initiatorTimestamp: initiatorTimestamp, responderTimestamp: responderTimestamp,
                 responderRefundPKH: responderRefundPKH, responderRedeemPKH: responderRedeemPKH
         )

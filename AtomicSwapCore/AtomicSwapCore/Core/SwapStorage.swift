@@ -43,10 +43,16 @@ open class SwapStorage {
 
         return migrator
     }
+}
 
-    func allSwaps() -> [Swap] {
+extension SwapStorage : ISwapStorage {
+
+    func swapsInProgress() -> [Swap] {
         return try! dbPool.read { db in
-            try Swap.fetchAll(db)
+            try Swap
+                    .filter((Swap.Columns.initiator == true && Swap.Columns.state != Swap.State.initiatorRedeemed) &&
+                            (Swap.Columns.initiator == false && Swap.Columns.state != Swap.State.responderRedeemed))
+                    .fetchAll(db)
         }
     }
 

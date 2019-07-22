@@ -60,7 +60,7 @@ class BalanceController: UITableViewController {
 
     @objc func start() {
         Manager.shared.adapters.forEach { $0.start() }
-        try? SwapKit.shared.triggerWatchers()
+        try? Manager.shared.swapKit.triggerWatchers()
     }
 
     @IBAction func showDebugInfo() {

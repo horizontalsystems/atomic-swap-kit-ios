@@ -24,6 +24,10 @@ class SwapController: UIViewController {
     private var adapters: [BaseAdapter] {
         return Manager.shared.adapters
     }
+
+    private var swapKit: SwapKit {
+        return Manager.shared.swapKit
+    }
     
     private var coinsDataSource: DataSource<String> {
         return adapters.map { $0.coinCode }
@@ -98,7 +102,7 @@ class SwapController: UIViewController {
 
         let requestStr: String
         do {
-            let request = try SwapKit.shared.createSwapRequest(haveCoinCode: haveCoinAdapter.coinCode, wantCoinCode: wantCoinAdapter.coinCode, rate: Double(truncating: rate as NSNumber), amount: Double(truncating: value as NSNumber))
+            let request = try swapKit.createSwapRequest(haveCoinCode: haveCoinAdapter.coinCode, wantCoinCode: wantCoinAdapter.coinCode, rate: Double(truncating: rate as NSNumber), amount: Double(truncating: value as NSNumber))
             requestStr = codec.getString(from: request)
         } catch {
             show(error: error.localizedDescription)
@@ -117,7 +121,7 @@ class SwapController: UIViewController {
         let responseStr: String
         do {
             let request = try codec.getRequest(from: requestStr)
-            let response = try SwapKit.shared.acceptSwapAndCreateResponse(request: request)
+            let response = try swapKit.createSwapResponse(from: request)
             responseStr = codec.getString(from: response)
         } catch {
             show(error: error.localizedDescription)
@@ -135,7 +139,7 @@ class SwapController: UIViewController {
 
         do {
             let response = try codec.getResponse(from: responseStr)
-            try SwapKit.shared.initiateSwap(from: response)
+            try swapKit.initiateSwap(from: response)
         } catch {
             show(error: error.localizedDescription)
             return

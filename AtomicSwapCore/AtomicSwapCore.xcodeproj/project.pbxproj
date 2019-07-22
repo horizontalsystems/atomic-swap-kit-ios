@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		1DCB4A455B7E616B3B9FCDE3 /* Pods_AtomicSwapCoreTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419C75E28D2063C91685F83E /* Pods_AtomicSwapCoreTests.framework */; };
+		2FA5D3ECEE97B2238C59DB86 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA5DA62607B0CBA6B95A9AC /* Extensions.swift */; };
+		2FA5D905A084E02A9B1374CA /* SwapResponderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA5D3AF4B342AB16C76759C /* SwapResponderTests.swift */; };
+		2FA5DA7038D7BDA8DDE8B1B2 /* SwapKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA5D8F9315711417A5171DC /* SwapKitTests.swift */; };
+		2FA5DB82BF13D7EFC504475E /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA5D051509C5AF8F5B4131C /* Logger.swift */; };
+		2FA5DF1064773A269CB3610C /* SwapInitiatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA5D70438552477758B1459 /* SwapInitiatorTests.swift */; };
 		98109F58379E8A819DC736D0 /* Pods_AtomicSwapCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 228F64EA57E3906C109CA713 /* Pods_AtomicSwapCore.framework */; };
 		D053FDC622DC5391002982C6 /* AtomicSwapCore.h in Headers */ = {isa = PBXBuildFile; fileRef = D053FDC422DC5391002982C6 /* AtomicSwapCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D053FEA722DC6FD0002982C6 /* SwapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FE9D22DC6FCF002982C6 /* SwapKit.swift */; };
@@ -20,8 +25,8 @@
 		D053FEAE22DC6FD0002982C6 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FEA422DC6FCF002982C6 /* Protocols.swift */; };
 		D053FEAF22DC6FD0002982C6 /* PublicKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FEA522DC6FCF002982C6 /* PublicKey.swift */; };
 		D053FEB022DC6FD0002982C6 /* SwapInitiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FEA622DC6FCF002982C6 /* SwapInitiator.swift */; };
-		D053FEB822DC7283002982C6 /* AtomicSwapCoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FEB722DC7283002982C6 /* AtomicSwapCoreTests.swift */; };
 		D053FEBA22DC7283002982C6 /* AtomicSwapCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D053FDC122DC5391002982C6 /* AtomicSwapCore.framework */; };
+		D05F744922DF266E0015F8BB /* GeneratedMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05F744822DF266E0015F8BB /* GeneratedMocks.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +41,11 @@
 
 /* Begin PBXFileReference section */
 		228F64EA57E3906C109CA713 /* Pods_AtomicSwapCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AtomicSwapCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2FA5D051509C5AF8F5B4131C /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		2FA5D3AF4B342AB16C76759C /* SwapResponderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwapResponderTests.swift; sourceTree = "<group>"; };
+		2FA5D70438552477758B1459 /* SwapInitiatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwapInitiatorTests.swift; sourceTree = "<group>"; };
+		2FA5D8F9315711417A5171DC /* SwapKitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwapKitTests.swift; sourceTree = "<group>"; };
+		2FA5DA62607B0CBA6B95A9AC /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		419C75E28D2063C91685F83E /* Pods_AtomicSwapCoreTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AtomicSwapCoreTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55F50F81AAA02FBEF1DB70E2 /* Pods-AtomicSwapCore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AtomicSwapCore.debug.xcconfig"; path = "Target Support Files/Pods-AtomicSwapCore/Pods-AtomicSwapCore.debug.xcconfig"; sourceTree = "<group>"; };
 		907462DB5DC36192B87BE1C8 /* Pods-AtomicSwapCoreTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AtomicSwapCoreTests.release.xcconfig"; path = "Target Support Files/Pods-AtomicSwapCoreTests/Pods-AtomicSwapCoreTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -53,8 +63,8 @@
 		D053FEA522DC6FCF002982C6 /* PublicKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicKey.swift; sourceTree = "<group>"; };
 		D053FEA622DC6FCF002982C6 /* SwapInitiator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwapInitiator.swift; sourceTree = "<group>"; };
 		D053FEB522DC7283002982C6 /* AtomicSwapCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AtomicSwapCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D053FEB722DC7283002982C6 /* AtomicSwapCoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomicSwapCoreTests.swift; sourceTree = "<group>"; };
 		D053FEB922DC7283002982C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D05F744822DF266E0015F8BB /* GeneratedMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratedMocks.swift; sourceTree = "<group>"; };
 		E573A147C0720A2D77DBD38F /* Pods-AtomicSwapCore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AtomicSwapCore.release.xcconfig"; path = "Target Support Files/Pods-AtomicSwapCore/Pods-AtomicSwapCore.release.xcconfig"; sourceTree = "<group>"; };
 		F7D99C9ED97CDF51C92568D5 /* Pods-AtomicSwapCoreTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AtomicSwapCoreTests.debug.xcconfig"; path = "Target Support Files/Pods-AtomicSwapCoreTests/Pods-AtomicSwapCoreTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -125,8 +135,11 @@
 			isa = PBXGroup;
 			children = (
 				D053FE9C22DC6FC0002982C6 /* Core */,
+				D05F744522DF0FBE0015F8BB /* Helpers */,
 				D053FDC422DC5391002982C6 /* AtomicSwapCore.h */,
 				D053FDC522DC5391002982C6 /* Info.plist */,
+				2FA5D051509C5AF8F5B4131C /* Logger.swift */,
+				D053FEA322DC6FCF002982C6 /* Messages.swift */,
 			);
 			path = AtomicSwapCore;
 			sourceTree = "<group>";
@@ -134,10 +147,8 @@
 		D053FE9C22DC6FC0002982C6 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				D053FEA322DC6FCF002982C6 /* Messages.swift */,
 				D053FEA422DC6FCF002982C6 /* Protocols.swift */,
 				D053FEA522DC6FCF002982C6 /* PublicKey.swift */,
-				D053FEA122DC6FCF002982C6 /* RandomHelper.swift */,
 				D053FEA022DC6FCF002982C6 /* Swap.swift */,
 				D053FEA222DC6FCF002982C6 /* SwapFactory.swift */,
 				D053FEA622DC6FCF002982C6 /* SwapInitiator.swift */,
@@ -151,10 +162,30 @@
 		D053FEB622DC7283002982C6 /* AtomicSwapCoreTests */ = {
 			isa = PBXGroup;
 			children = (
-				D053FEB722DC7283002982C6 /* AtomicSwapCoreTests.swift */,
+				D05F744622DF12410015F8BB /* Core */,
+				D05F744822DF266E0015F8BB /* GeneratedMocks.swift */,
 				D053FEB922DC7283002982C6 /* Info.plist */,
+				2FA5DA62607B0CBA6B95A9AC /* Extensions.swift */,
 			);
 			path = AtomicSwapCoreTests;
+			sourceTree = "<group>";
+		};
+		D05F744522DF0FBE0015F8BB /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D053FEA122DC6FCF002982C6 /* RandomHelper.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		D05F744622DF12410015F8BB /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				2FA5D8F9315711417A5171DC /* SwapKitTests.swift */,
+				2FA5D70438552477758B1459 /* SwapInitiatorTests.swift */,
+				2FA5D3AF4B342AB16C76759C /* SwapResponderTests.swift */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,6 +226,7 @@
 			buildConfigurationList = D053FEBD22DC7283002982C6 /* Build configuration list for PBXNativeTarget "AtomicSwapCoreTests" */;
 			buildPhases = (
 				E9470DD8641606E9880936DD /* [CP] Check Pods Manifest.lock */,
+				D05F744722DF167F0015F8BB /* Cuckoo */,
 				D053FEB122DC7283002982C6 /* Sources */,
 				D053FEB222DC7283002982C6 /* Frameworks */,
 				D053FEB322DC7283002982C6 /* Resources */,
@@ -287,6 +319,25 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		D05F744722DF167F0015F8BB /* Cuckoo */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/${PROJECT_NAME}/Core/Protocols.swift",
+			);
+			name = Cuckoo;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Define output file. Change \"$PROJECT_DIR/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"$PROJECT_DIR/${PROJECT_NAME}Tests/GeneratedMocks.swift\"\necho \"Generated Mocks File = $OUTPUT_FILE\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/${PROJECT_NAME}\"\necho \"Mocks Input Directory = $INPUT_DIR\"\n\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PODS_ROOT}/Cuckoo/run\" generate --testable \"$PROJECT_NAME\" \\\n--output \"${OUTPUT_FILE}\"\n";
+		};
 		E9470DD8641606E9880936DD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -343,6 +394,7 @@
 				D053FEA922DC6FD0002982C6 /* SwapStorage.swift in Sources */,
 				D053FEAF22DC6FD0002982C6 /* PublicKey.swift in Sources */,
 				D053FEAE22DC6FD0002982C6 /* Protocols.swift in Sources */,
+				2FA5DB82BF13D7EFC504475E /* Logger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,7 +402,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D053FEB822DC7283002982C6 /* AtomicSwapCoreTests.swift in Sources */,
+				2FA5DA7038D7BDA8DDE8B1B2 /* SwapKitTests.swift in Sources */,
+				D05F744922DF266E0015F8BB /* GeneratedMocks.swift in Sources */,
+				2FA5DF1064773A269CB3610C /* SwapInitiatorTests.swift in Sources */,
+				2FA5D3ECEE97B2238C59DB86 /* Extensions.swift in Sources */,
+				2FA5D905A084E02A9B1374CA /* SwapResponderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

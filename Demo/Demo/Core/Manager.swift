@@ -13,6 +13,7 @@ class Manager {
     let adapterSignal = Signal()
     var adapters = [BaseAdapter]()
     let disposeBag = DisposeBag()
+    let swapKit = SwapKit.instance()
     var syncedStateFired: Bool = false
 
     init() {
@@ -35,7 +36,7 @@ class Manager {
 
     func logout() {
         for adapter in adapters {
-            SwapKit.shared.unregister(coin: adapter.coinCode)
+            swapKit.unregister(coin: adapter.coinCode)
         }
 
         clearUserDefaults()
@@ -55,8 +56,9 @@ class Manager {
         ]
 
         let scriptBuilder = SwapScriptBuilder()
-        SwapKit.shared.register(blockchainCreator: BitcoinSwapBlockchainCreator(coinCode: bitcoinAdapter.coinCode, kit: bitcoinAdapter.bitcoinKit, scriptBuilder: scriptBuilder), forCoin: bitcoinAdapter.coinCode)
-        SwapKit.shared.register(blockchainCreator: BitcoinSwapBlockchainCreator(coinCode: bitcoinCashAdapter.coinCode, kit: bitcoinCashAdapter.bitcoinCashKit, scriptBuilder: scriptBuilder), forCoin: bitcoinCashAdapter.coinCode)
+        swapKit.register(blockchainCreator: BitcoinSwapBlockchainCreator(coinCode: bitcoinAdapter.coinCode, kit: bitcoinAdapter.bitcoinKit, scriptBuilder: scriptBuilder), forCoin: bitcoinAdapter.coinCode)
+        swapKit.register(blockchainCreator: BitcoinSwapBlockchainCreator(coinCode: bitcoinCashAdapter.coinCode, kit: bitcoinCashAdapter.bitcoinCashKit, scriptBuilder: scriptBuilder), forCoin: bitcoinCashAdapter.coinCode)
+        swapKit.load()
 
         bitcoinAdapter.syncStateObservable.subscribe(
                     onNext: { [weak self] in
@@ -97,7 +99,7 @@ class Manager {
 
         syncedStateFired = true
         if adapters.first(where: { !($0.syncState == BitcoinCore.KitState.synced) }) == nil {
-            try? SwapKit.shared.triggerTxSends()
+            try? swapKit.triggerTxSends()
         }
     }
 

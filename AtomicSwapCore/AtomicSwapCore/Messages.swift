@@ -1,6 +1,6 @@
 import Foundation
 
-public struct RequestMessage {
+public struct SwapRequest {
     public let id: String
     public let initiatorCoinCode: String
     public let responderCoinCode: String
@@ -20,10 +20,21 @@ public struct RequestMessage {
         self.initiatorRefundPKH = initiatorRefundPKH
         self.initiatorRedeemPKH = initiatorRedeemPKH
     }
+
+    public init(swap: Swap) {
+        id = swap.id
+        initiatorCoinCode = swap.initiatorCoinCode
+        responderCoinCode = swap.responderCoinCode
+        rate = swap.rate
+        amount = swap.amount
+        secretHash = swap.secretHash
+        initiatorRefundPKH = swap.initiatorRefundPKH
+        initiatorRedeemPKH = swap.initiatorRedeemPKH
+    }
 }
 
 
-public struct ResponseMessage {
+public struct SwapResponse {
     public let id: String
     public let initiatorTimestamp: Int
     public let responderTimestamp: Int
@@ -36,5 +47,13 @@ public struct ResponseMessage {
         self.responderTimestamp = responderTimestamp
         self.responderRefundPKH = responderRefundPKH
         self.responderRedeemPKH = responderRedeemPKH
+    }
+
+    public init(swap: Swap) {
+        id = swap.id
+        initiatorTimestamp = swap.initiatorTimestamp!
+        responderTimestamp = swap.responderTimestamp!
+        responderRefundPKH = swap.responderRefundPKH!
+        responderRedeemPKH = swap.responderRedeemPKH!
     }
 }
