@@ -50,7 +50,7 @@ extension SwapStorage : ISwapStorage {
     func swapsInProgress() -> [Swap] {
         return try! dbPool.read { db in
             try Swap
-                    .filter((Swap.Columns.initiator == true && Swap.Columns.state != Swap.State.initiatorRedeemed) &&
+                    .filter((Swap.Columns.initiator == true && Swap.Columns.state != Swap.State.initiatorRedeemed) ||
                             (Swap.Columns.initiator == false && Swap.Columns.state != Swap.State.responderRedeemed))
                     .fetchAll(db)
         }

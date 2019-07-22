@@ -103,7 +103,6 @@ public class BitcoinSwapBlockchain: ISwapBlockchain {
     }
 
     public func bailTransaction(from data: Data) throws -> IBailTransaction {
-        print(data.count)
         guard data.count > 48 else {
             throw BitcoinKitSwapBlockchainError.transactionFromOtherBlockchain
         }

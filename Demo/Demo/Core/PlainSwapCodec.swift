@@ -7,12 +7,25 @@ class PlainSwapCodec {
         case wrongResponse
     }
 
+    static let separator: Character = "|"
+
     func getString(from message: SwapRequest) -> String {
-        return "\(message.id)|\(message.initiatorCoinCode)|\(message.responderCoinCode)|\(message.rate)|\(message.amount)|\(message.secretHash.hex)|\(message.initiatorRedeemPKH.hex)|\(message.initiatorRefundPKH.hex)"
+        let list: [String] = [
+            message.id,
+            message.initiatorCoinCode,
+            message.responderCoinCode,
+            String(message.rate),
+            String(message.amount),
+            message.secretHash.hex,
+            message.initiatorRedeemPKH.hex,
+            message.initiatorRefundPKH.hex
+        ]
+
+        return list.joined(separator: String(PlainSwapCodec.separator))
     }
 
     func getRequest(from str: String) throws -> SwapRequest {
-        let parts = str.split(separator: "|").map { String($0) }
+        let parts = str.split(separator: PlainSwapCodec.separator).map { String($0) }
 
         guard parts.count == 8 else {
             throw PlainSwapCodecError.wrongRequest
@@ -24,7 +37,7 @@ class PlainSwapCodec {
 
         guard let rate = Double(parts[3]), let amount = Double(parts[4]),
               let secretHash = Data(hex: parts[5]),
-              let initiatorRefundPKH = Data(hex: parts[6]), let initiatorRedeemPKH = Data(hex: parts[7]) else {
+              let initiatorRedeemPKH = Data(hex: parts[6]), let initiatorRefundPKH = Data(hex: parts[7]) else {
             throw PlainSwapCodecError.wrongRequest
         }
 
@@ -35,11 +48,19 @@ class PlainSwapCodec {
     }
 
     func getString(from response: SwapResponse) -> String {
-        return "\(response.id)|\(response.initiatorTimestamp)|\(response.responderTimestamp)|\(response.responderRedeemPKH.hex)|\(response.responderRefundPKH.hex)"
+        let list: [String] = [
+            response.id,
+            String(response.initiatorTimestamp),
+            String(response.responderTimestamp),
+            response.responderRedeemPKH.hex,
+            response.responderRefundPKH.hex
+        ]
+
+        return list.joined(separator: String(PlainSwapCodec.separator))
     }
 
     func getResponse(from str: String) throws -> SwapResponse {
-        let parts = str.split(separator: "|").map { String($0) }
+        let parts = str.split(separator: PlainSwapCodec.separator).map { String($0) }
 
         guard parts.count == 5 else {
             throw PlainSwapCodecError.wrongResponse
@@ -48,7 +69,7 @@ class PlainSwapCodec {
         let id = parts[0]
 
         guard let initiatorTimestamp = Int(parts[1]), let responderTimestamp = Int(parts[2]),
-              let responderRefundPKH = Data(hex: parts[3]), let responderRedeemPKH = Data(hex: parts[4]) else {
+              let responderRedeemPKH = Data(hex: parts[3]), let responderRefundPKH = Data(hex: parts[4]) else {
             throw PlainSwapCodecError.wrongResponse
         }
 

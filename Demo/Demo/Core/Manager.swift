@@ -99,7 +99,7 @@ class Manager {
 
         syncedStateFired = true
         if adapters.first(where: { !($0.syncState == BitcoinCore.KitState.synced) }) == nil {
-            try? swapKit.triggerTxSends()
+            try? swapKit.proceedNext()
         }
     }
 
