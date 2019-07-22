@@ -35,14 +35,14 @@ public class SwapKit {
             if swap.initiator {
                 do {
                     let initiator = try factory.swapInitiator(swap: swap)
-                    initiators[initiator.swap.id] = initiator
+                    initiators[swap.id] = initiator
                 } catch {
                     logger?.error(error)
                 }
             } else {
                 do {
                     let responder = try factory.swapResponder(swap: swap)
-                    responders[responder.swap.id] = responder
+                    responders[swap.id] = responder
                 } catch {
                     logger?.error(error)
                 }
@@ -73,7 +73,7 @@ public class SwapKit {
         )
 
         let swapResponder = try factory.swapResponder(swap: swap)
-        try swapResponder.start()
+        try swapResponder.proceedNext()
 
         responders[swap.id] = swapResponder
 
@@ -88,7 +88,7 @@ public class SwapKit {
         )
 
         let swapInitiator = try factory.swapInitiator(swap: swap)
-        try swapInitiator.start()
+        try swapInitiator.proceedNext()
 
         initiators[swap.id] = swapInitiator
     }

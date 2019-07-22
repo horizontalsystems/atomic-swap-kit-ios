@@ -17,7 +17,7 @@ public class SwapScriptBuilder {
         script += [OpCode.sha256] + OpCode.push(secretHash) + [OpCode.equalVerify]
         script += [OpCode.dup, OpCode.hash160] + OpCode.push(redeemKeyHash)
         script += [OpCode._else]
-        script += OpCode.push(Data(from: timestamp)) + [OpCode.checkLockTimeVerify]
+        script += OpCode.push(Data(from: UInt32(timestamp))) + [OpCode.checkLockTimeVerify]
         script += [OpCode.drop, OpCode.dup, OpCode.hash160] + OpCode.push(refundKeyHash)
         script += [OpCode.endIf]
         script += [OpCode.equalVerify, OpCode.checkSig]

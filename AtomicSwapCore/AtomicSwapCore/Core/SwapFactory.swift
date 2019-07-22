@@ -100,9 +100,12 @@ extension SwapFactory : ISwapFactory {
         var initiatorBlockchain = try blockchain(from: swap.initiatorCoinCode)
         var responderBlockchain = try blockchain(from: swap.responderCoinCode)
 
-        let swapInitiator = SwapInitiator(initiatorBlockchain: initiatorBlockchain, responderBlockchain: responderBlockchain, storage: storage, swap: swap)
-        initiatorBlockchain.delegate = swapInitiator
-        responderBlockchain.delegate = swapInitiator
+        let swapInitiatorDoer = SwapInitiatorDoer(initiatorBlockchain: initiatorBlockchain, responderBlockchain: responderBlockchain, storage: storage, swap: swap)
+        initiatorBlockchain.delegate = swapInitiatorDoer
+        responderBlockchain.delegate = swapInitiatorDoer
+
+        let swapInitiator = SwapInitiator(doer: swapInitiatorDoer)
+        swapInitiatorDoer.delegate = swapInitiator
 
         return swapInitiator
     }
@@ -111,9 +114,12 @@ extension SwapFactory : ISwapFactory {
         var initiatorBlockchain = try blockchain(from: swap.initiatorCoinCode)
         var responderBlockchain = try blockchain(from: swap.responderCoinCode)
 
-        let swapResponder = SwapResponder(initiatorBlockchain: initiatorBlockchain, responderBlockchain: responderBlockchain, storage: storage, swap: swap)
-        initiatorBlockchain.delegate = swapResponder
-        responderBlockchain.delegate = swapResponder
+        let swapResponderDoer = SwapResponderDoer(initiatorBlockchain: initiatorBlockchain, responderBlockchain: responderBlockchain, storage: storage, swap: swap)
+        initiatorBlockchain.delegate = swapResponderDoer
+        responderBlockchain.delegate = swapResponderDoer
+
+        let swapResponder = SwapResponder(doer: swapResponderDoer)
+        swapResponderDoer.delegate = swapResponder
 
         return swapResponder
     }

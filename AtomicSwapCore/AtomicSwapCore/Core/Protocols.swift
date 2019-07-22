@@ -18,16 +18,27 @@ protocol ISwapFactory {
     func swapResponder(swap: Swap) throws -> ISwapResponder
 }
 
-protocol ISwapInitiator {
+protocol ISwapInitiatorDoer {
     var swap: Swap { get }
-    func proceedNext() throws
-    func start() throws
+    func bail() throws
+    func watchResponderBail() throws
+    func redeem() throws
 }
 
-protocol ISwapResponder {
+protocol ISwapResonderDoer {
     var swap: Swap { get }
+    func bail() throws
+    func watchInitiatorBail() throws
+    func watchInitiatorRedeem() throws
+    func redeem() throws
+}
+
+protocol ISwapInitiator: AnyObject {
     func proceedNext() throws
-    func start() throws
+}
+
+protocol ISwapResponder: AnyObject {
+    func proceedNext() throws
 }
 
 public protocol ISwapBlockchain {

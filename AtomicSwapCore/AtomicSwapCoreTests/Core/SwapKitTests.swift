@@ -29,11 +29,9 @@ class SwapKitTests: QuickSpec {
                     initiatorRefundPKH: Data(), initiatorRedeemPKH: Data(), responderRefundPKH: nil, responderRedeemPKH: nil)
 
             stub(mockInitiator) { mock in
-                when(mock.swap.get).thenReturn(initiatorSwap)
                 when(mock.proceedNext()).thenDoNothing()
             }
             stub(mockResponder) { mock in
-                when(mock.swap.get).thenReturn(responderSwap)
                 when(mock.proceedNext()).thenDoNothing()
             }
             stub(mockStorage) { mock in
