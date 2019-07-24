@@ -4,13 +4,10 @@ import AtomicSwapCore
 public class BitcoinSwapBlockchainCreator : ISwapBlockchainCreator {
 
     weak var kit: AbstractKit?
-    private let coinCode: String
-    private let scriptBuilder: SwapScriptBuilder
+    private let scriptBuilder = SwapScriptBuilder()
 
-    public init(coinCode: String, kit: AbstractKit, scriptBuilder: SwapScriptBuilder) {
-        self.coinCode = coinCode
+    public init(kit: AbstractKit) {
         self.kit = kit
-        self.scriptBuilder = scriptBuilder
     }
 
     public func create() throws -> ISwapBlockchain {
@@ -18,7 +15,7 @@ public class BitcoinSwapBlockchainCreator : ISwapBlockchainCreator {
             throw BitcoinSwapBlockchain.BitcoinKitSwapBlockchainError.noKitFound
         }
 
-        return BitcoinSwapBlockchain(coinCode: coinCode, kit: kit, scriptBuilder: scriptBuilder)
+        return BitcoinSwapBlockchain(kit: kit, scriptBuilder: scriptBuilder)
     }
 
 }

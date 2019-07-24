@@ -43,7 +43,6 @@ protocol ISwapResponder: AnyObject {
 
 public protocol ISwapBlockchain {
     var delegate: ISwapBlockchainDelegate? { get set }
-    var coinCode: String { get }
     var synced: Bool { get }
     func changePublicKey() throws -> PublicKey
     func receivePublicKey() throws -> PublicKey

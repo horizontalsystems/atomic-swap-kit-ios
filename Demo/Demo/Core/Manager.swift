@@ -55,9 +55,8 @@ class Manager {
 //            dashAdapter,
         ]
 
-        let scriptBuilder = SwapScriptBuilder()
-        swapKit.register(blockchainCreator: BitcoinSwapBlockchainCreator(coinCode: bitcoinAdapter.coinCode, kit: bitcoinAdapter.bitcoinKit, scriptBuilder: scriptBuilder), forCoin: bitcoinAdapter.coinCode)
-        swapKit.register(blockchainCreator: BitcoinSwapBlockchainCreator(coinCode: bitcoinCashAdapter.coinCode, kit: bitcoinCashAdapter.bitcoinCashKit, scriptBuilder: scriptBuilder), forCoin: bitcoinCashAdapter.coinCode)
+        swapKit.register(blockchainCreator: BitcoinSwapBlockchainCreator(kit: bitcoinAdapter.bitcoinKit), forCoin: bitcoinAdapter.coinCode)
+        swapKit.register(blockchainCreator: BitcoinSwapBlockchainCreator(kit: bitcoinCashAdapter.bitcoinCashKit), forCoin: bitcoinCashAdapter.coinCode)
         swapKit.load()
 
         bitcoinAdapter.syncStateObservable.subscribe(

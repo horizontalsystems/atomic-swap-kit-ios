@@ -11,14 +11,12 @@ public class BitcoinSwapBlockchain: ISwapBlockchain {
 
     static let satoshiPerBitcoin = 100_000_000.0
 
-    public let coinCode: String
     let scriptBuilder: SwapScriptBuilder
 
     weak var kit: AbstractKit?
     public weak var delegate: ISwapBlockchainDelegate?
 
-    init(coinCode: String, kit: AbstractKit, scriptBuilder: SwapScriptBuilder) {
-        self.coinCode = coinCode
+    init(kit: AbstractKit, scriptBuilder: SwapScriptBuilder) {
         self.kit = kit
         self.scriptBuilder = scriptBuilder
     }

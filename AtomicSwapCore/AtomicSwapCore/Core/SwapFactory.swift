@@ -44,7 +44,7 @@ extension SwapFactory : ISwapFactory {
 
         let swap = Swap(
                 id: id.reduce("") { $0 + String(format: "%02x", $1) }, state: Swap.State.requested,
-                initiator: true, initiatorCoinCode: initiatorBlockchain.coinCode, responderCoinCode: responderBlockchain.coinCode,
+                initiator: true, initiatorCoinCode: initiatorCoinCode, responderCoinCode: responderCoinCode,
                 rate: rate, amount: amount,
                 secretHash: CryptoKit.sha256(secret), secret: secret,
                 initiatorTimestamp: nil, responderTimestamp: nil,
