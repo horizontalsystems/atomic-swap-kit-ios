@@ -1,5 +1,4 @@
 import Foundation
-import HSCryptoKit.Private
 
 public class SwapKit {
     enum SwapError : Error {
