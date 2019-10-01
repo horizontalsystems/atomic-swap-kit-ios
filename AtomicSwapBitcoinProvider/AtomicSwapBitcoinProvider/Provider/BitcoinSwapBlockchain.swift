@@ -95,7 +95,7 @@ public class BitcoinSwapBlockchain: ISwapBlockchain {
         )
         let unspentOutput = UnspentOutput(output: output, publicKey: publicKey, transaction: Transaction(version: 0, lockTime: 0, timestamp: nil))
 
-        _ = try kit.redeem(from: unspentOutput, to: kit.receiveAddress(for: .p2pkh), feeRate: 43) { signature, publicKey in
+        _ = try kit.redeem(from: unspentOutput, to: kit.receiveAddress(), feeRate: 43) { signature, publicKey in
             return OpCode.push(signature) + OpCode.push(publicKey) + OpCode.push(secret) + OpCode.push(1) + OpCode.push(redeemScript)
         }
     }

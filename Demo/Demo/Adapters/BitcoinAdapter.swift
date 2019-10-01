@@ -8,7 +8,7 @@ class BitcoinAdapter: BaseAdapter {
 
     init(words: [String], testMode: Bool, syncMode: BitcoinCore.SyncMode) {
         let networkType: BitcoinKit.NetworkType = testMode ? .testNet : .mainNet
-        bitcoinKit = try! BitcoinKit(withWords: words, walletId: "walletId", syncMode: syncMode, networkType: networkType, minLogLevel: Configuration.shared.minLogLevel)
+        bitcoinKit = try! BitcoinKit(withWords: words, bip: .bip44, walletId: "walletId", syncMode: syncMode, networkType: networkType, minLogLevel: Configuration.shared.minLogLevel)
 
         super.init(name: "Bitcoin", coinCode: "BTC", abstractKit: bitcoinKit)
         bitcoinKit.delegate = self

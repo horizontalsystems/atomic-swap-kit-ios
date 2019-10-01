@@ -31,7 +31,7 @@ target :Demo do
   project 'Demo/Demo'
 
   pod 'RSSelectionMenu'
-  pod 'HSHDWalletKit', '~> 1.1'
+  pod 'HSHDWalletKit', '~> 1'
   pod 'RxSwift', '~> 5.0'
 
   pod 'BitcoinCore.swift', git: 'https://github.com/horizontalsystems/bitcoin-kit-ios/'
