@@ -1,46 +1,61 @@
 PODS:
-  - Alamofire (4.9.0)
-  - BigInt (4.0.0)
-  - BitcoinCashKit.swift (0.8.0):
-    - Alamofire (~> 4.0)
-    - BigInt (~> 4.0)
-    - BitcoinCore.swift (~> 0.8.0)
+  - Alamofire (5.2.1)
+  - BigInt (5.0.0)
+  - BitcoinCashKit.swift (0.14.3):
+    - BigInt (~> 5.0)
+    - BitcoinCore.swift (~> 0.14)
     - GRDB.swift (~> 4.0)
-    - HSCryptoKit (~> 1.4)
-    - HSHDWalletKit (~> 1.2)
+    - HdWalletKit.swift (~> 1.5)
+    - ObjectMapper (~> 3.0)
+    - OpenSslKit.swift (~> 1.0)
+    - RxSwift (~> 5.0)
+    - Secp256k1Kit.swift (~> 1.0)
+  - BitcoinCore.swift (0.14.3):
+    - BigInt (~> 5.0)
+    - GRDB.swift (~> 4.0)
+    - HdWalletKit.swift (~> 1.5)
+    - HsToolKit.swift (~> 1.0)
+    - ObjectMapper (~> 3.0)
+    - OpenSslKit.swift (~> 1.0)
+    - RxSwift (~> 5.0)
+    - Secp256k1Kit.swift (~> 1.0)
+  - BitcoinKit.swift (0.14.3):
+    - BigInt (~> 5.0)
+    - BitcoinCore.swift (~> 0.14)
+    - GRDB.swift (~> 4.0)
+    - HdWalletKit.swift (~> 1.5)
+    - Hodler.swift (~> 0.14)
+    - ObjectMapper (~> 3.0)
+    - OpenSslKit.swift (~> 1.0)
+    - RxSwift (~> 5.0)
+    - Secp256k1Kit.swift (~> 1.0)
+  - Cuckoo (1.3.2):
+    - Cuckoo/Swift (= 1.3.2)
+  - Cuckoo/Swift (1.3.2)
+  - GRDB.swift (4.14.0):
+    - GRDB.swift/standard (= 4.14.0)
+  - GRDB.swift/standard (4.14.0)
+  - HdWalletKit.swift (1.5):
+    - OpenSslKit.swift (~> 1.0)
+    - Secp256k1Kit.swift (~> 1.0)
+  - Hodler.swift (0.14.3):
+    - BitcoinCore.swift (~> 0.14)
+    - OpenSslKit.swift (~> 1.0)
+    - Secp256k1Kit.swift (~> 1.0)
+  - HSHDWalletKit (1.3):
+    - OpenSslKit.swift (~> 1.0)
+    - Secp256k1Kit.swift (~> 1.0)
+  - HsToolKit.swift (1.0):
+    - Alamofire (~> 5.0)
     - ObjectMapper (~> 3.0)
     - RxSwift (~> 5.0)
-  - BitcoinCore.swift (0.8.0):
-    - Alamofire (~> 4.0)
-    - BigInt (~> 4.0)
-    - GRDB.swift (~> 4.0)
-    - HSCryptoKit (~> 1.4)
-    - HSHDWalletKit (~> 1.2)
-    - ObjectMapper (~> 3.0)
-    - RxSwift (~> 5.0)
-  - BitcoinKit.swift (0.8.0):
-    - Alamofire (~> 4.0)
-    - BigInt (~> 4.0)
-    - BitcoinCore.swift (~> 0.8.0)
-    - GRDB.swift (~> 4.0)
-    - HSCryptoKit (~> 1.4)
-    - HSHDWalletKit (~> 1.2)
-    - ObjectMapper (~> 3.0)
-    - RxSwift (~> 5.0)
-  - Cuckoo (1.2.0):
-    - Cuckoo/Swift (= 1.2.0)
-  - Cuckoo/Swift (1.2.0)
-  - GRDB.swift (4.4.0):
-    - GRDB.swift/standard (= 4.4.0)
-  - GRDB.swift/standard (4.4.0)
-  - HSCryptoKit (1.5.0)
-  - HSHDWalletKit (1.2.0):
-    - HSCryptoKit (~> 1)
-  - Nimble (8.0.4)
-  - ObjectMapper (3.5.1)
+  - Nimble (8.0.9)
+  - ObjectMapper (3.5.3)
+  - OpenSslKit.swift (1.2)
   - Quick (2.2.0)
-  - RSSelectionMenu (6.0.6)
-  - RxSwift (5.0.0)
+  - RSSelectionMenu (6.1.0)
+  - RxSwift (5.1.1)
+  - Secp256k1Kit.swift (1.0)
 
 DEPENDENCIES:
   - BitcoinCashKit.swift (from `https://github.com/horizontalsystems/bitcoin-kit-ios/`)
@@ -48,26 +63,31 @@ DEPENDENCIES:
   - BitcoinKit.swift (from `https://github.com/horizontalsystems/bitcoin-kit-ios/`)
   - Cuckoo
   - GRDB.swift (~> 4.0)
-  - HSCryptoKit (~> 1.4)
   - HSHDWalletKit (~> 1)
+  - HsToolKit.swift (~> 1)
   - Nimble
+  - OpenSslKit.swift (~> 1.0)
   - Quick
   - RSSelectionMenu
   - RxSwift (~> 5.0)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - Alamofire
     - BigInt
     - Cuckoo
     - GRDB.swift
-    - HSCryptoKit
+    - HdWalletKit.swift
+    - Hodler.swift
     - HSHDWalletKit
+    - HsToolKit.swift
     - Nimble
     - ObjectMapper
+    - OpenSslKit.swift
     - Quick
     - RSSelectionMenu
     - RxSwift
+    - Secp256k1Kit.swift
 
 EXTERNAL SOURCES:
   BitcoinCashKit.swift:
@@ -79,31 +99,35 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   BitcoinCashKit.swift:
-    :commit: 5d02ef8ffa653c5ab9876d81bec0b73f1cf8c93e
+    :commit: 597fd6a8ee51e7bca2eb9fa4b951b29fb796b5c0
     :git: https://github.com/horizontalsystems/bitcoin-kit-ios/
   BitcoinCore.swift:
-    :commit: 5d02ef8ffa653c5ab9876d81bec0b73f1cf8c93e
+    :commit: 597fd6a8ee51e7bca2eb9fa4b951b29fb796b5c0
     :git: https://github.com/horizontalsystems/bitcoin-kit-ios/
   BitcoinKit.swift:
-    :commit: 5d02ef8ffa653c5ab9876d81bec0b73f1cf8c93e
+    :commit: 597fd6a8ee51e7bca2eb9fa4b951b29fb796b5c0
     :git: https://github.com/horizontalsystems/bitcoin-kit-ios/
 
 SPEC CHECKSUMS:
-  Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
-  BigInt: 2aad1a9942dc932ec8b84290d2c564a3d76f97ab
-  BitcoinCashKit.swift: f2b22165900683ffca70c4cb5df1e15dacd776c9
-  BitcoinCore.swift: a7214de8ec77ef06902618cc026aa93c54c78db4
-  BitcoinKit.swift: e5c03eb95ccd8d50a124fb55d2b3abd2bed53ec5
-  Cuckoo: f5f4e7c308c512cc2dedbdce23f5dc6985cb5173
-  GRDB.swift: 4f9b6e7efc9470426f6a6de10ec1fee798ff7e43
-  HSCryptoKit: 514a3111fd37ad18b7261d4a55271daaba3b0eb9
-  HSHDWalletKit: 6f5d5b1f9b1f950c948bdff13f5f52e5c5bcb7bb
-  Nimble: 18d5360282923225d62b09d781f63abc1a0111fc
-  ObjectMapper: 70187b8941977c62ccfb423caf6b50be405cabf0
+  Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
+  BigInt: 74b4d88367b0e819d9f77393549226d36faeb0d8
+  BitcoinCashKit.swift: df5b06703e6b64cb63655da4b124376b784d8760
+  BitcoinCore.swift: cedc633dcdb979e3387ab201d3150619baa12464
+  BitcoinKit.swift: 8b9c69ad9a36ec0687606ed92f50cfbee64ecf66
+  Cuckoo: 57f71c6616b6b08cd9fe27f803da056fb619ff3e
+  GRDB.swift: 8cc3ab7c8b8b4ac1761deb8dca4b51c1c9d429f8
+  HdWalletKit.swift: 4af4ef744a446904261971e5c31daf2eea8403c5
+  Hodler.swift: a39a4f8b43e5a9de4221f6a369936ead4e91a1ef
+  HSHDWalletKit: 32f4be6c71cd986dcbdcd057d224638d0ff80445
+  HsToolKit.swift: b89273c4018e3b70894e820c88cee8b684be9305
+  Nimble: 98b888285a615fd34f20e61753cf58ea1402bde4
+  ObjectMapper: 97111c97e054a6ee25917662106689f0b4127b37
+  OpenSslKit.swift: 168b059e3438c21994a3e9fe6c5648df96660d94
   Quick: 7fb19e13be07b5dfb3b90d4f9824c855a11af40e
-  RSSelectionMenu: d41b6e31094283358c9d0b756b177d76b83066df
-  RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
+  RSSelectionMenu: dac4fa365e4bbd95c0eccd0b6ff51a623a22a1c6
+  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
+  Secp256k1Kit.swift: 93b1bfbb8909c12605666cc3b1e59d1d1fde7322
 
-PODFILE CHECKSUM: 6036ad7eb9a65026816b3459ba937680bffb613a
+PODFILE CHECKSUM: 8fb24e4e0e559a2202998dc16e299422cbbb01b5
 
-COCOAPODS: 1.7.4
+COCOAPODS: 1.9.1

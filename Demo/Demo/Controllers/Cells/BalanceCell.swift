@@ -12,17 +12,23 @@ class BalanceCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel?
     @IBOutlet weak var titleLabel: UILabel?
     @IBOutlet weak var valueLabel: UILabel?
+    @IBOutlet weak var errorLabel: UILabel?
 
     func bind(adapter: BaseAdapter) {
         let syncStateString: String
+        var errorString = ""
 
         switch adapter.syncState {
         case .synced: syncStateString = "Synced!"
+        case .apiSyncing(let transactionsFound): syncStateString = "API Syncing \(transactionsFound) txs"
         case .syncing(let progress): syncStateString = "Syncing \(Int(progress * 100))%"
-        case .notSynced: syncStateString = "Not Synced"
+        case .notSynced(let error):
+            syncStateString = "Not Synced"
+            errorString = "\(error)"
         }
 
         nameLabel?.text = adapter.name
+        errorLabel?.text = errorString
 
         var lastBlockHeightString = "n/a"
         var lastBlockDateString = "n/a"
@@ -40,14 +46,16 @@ class BalanceCell: UITableViewCell {
                     Sync state:
                     Last block:
 
-                    Balance:
+                    Spendable balance:
+                    Unspendable balance:
                     """, alignment: .left, label: titleLabel)
 
         set(string: """
                     \(syncStateString)
                     \(lastBlockHeightString)
                     \(lastBlockDateString)
-                    \(adapter.balance) \(adapter.coinCode)
+                    \(adapter.spendableBalance.formattedAmount) \(adapter.coinCode)
+                    \(adapter.unspendableBalance.formattedAmount) \(adapter.coinCode)
                     """, alignment: .right, label: valueLabel)
     }
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2FA5D6F0A098AC3AF7D5481B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA5DF188B4AD5B5A04ECFA5 /* Extensions.swift */; };
 		D053FF4222DC9FCC002982C6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FF4122DC9FCC002982C6 /* ViewController.swift */; };
 		D053FF4722DC9FCC002982C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D053FF4622DC9FCC002982C6 /* Assets.xcassets */; };
 		D053FF5322DCA04C002982C6 /* AtomicSwapBitcoinProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D053FF5222DCA04C002982C6 /* AtomicSwapBitcoinProvider.framework */; };
@@ -20,7 +21,6 @@
 		D053FF7E22DCA2C8002982C6 /* Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FF6122DCA2C7002982C6 /* Signal.swift */; };
 		D053FF7F22DCA2C8002982C6 /* PlainSwapCodec.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FF6222DCA2C7002982C6 /* PlainSwapCodec.swift */; };
 		D053FF8022DCA2C8002982C6 /* TransactionRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FF6322DCA2C7002982C6 /* TransactionRecord.swift */; };
-		D053FF8122DCA2C8002982C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FF6422DCA2C7002982C6 /* AppDelegate.swift */; };
 		D053FF8222DCA2C8002982C6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D053FF6522DCA2C7002982C6 /* LaunchScreen.xib */; };
 		D053FF8322DCA2C8002982C6 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FF6622DCA2C8002982C6 /* Configuration.swift */; };
 		D053FF8422DCA2C8002982C6 /* BitcoinCashAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FF6822DCA2C8002982C6 /* BitcoinCashAdapter.swift */; };
@@ -41,6 +41,7 @@
 		D053FF9422DCA2C8002982C6 /* SwapController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D053FF7A22DCA2C8002982C6 /* SwapController.xib */; };
 		D053FF9522DCA2C8002982C6 /* SendController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053FF7B22DCA2C8002982C6 /* SendController.swift */; };
 		D053FF9622DCA2C8002982C6 /* ReceiveController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D053FF7C22DCA2C8002982C6 /* ReceiveController.xib */; };
+		D06A506B247D2AE300230602 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06A506A247D2AE300230602 /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -60,6 +61,7 @@
 
 /* Begin PBXFileReference section */
 		03A01452094FD962A5A18D22 /* Pods-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.debug.xcconfig"; path = "Target Support Files/Pods-Demo/Pods-Demo.debug.xcconfig"; sourceTree = "<group>"; };
+		2FA5DF188B4AD5B5A04ECFA5 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		9A9B80CAD01312EED9D799DA /* Pods-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.release.xcconfig"; path = "Target Support Files/Pods-Demo/Pods-Demo.release.xcconfig"; sourceTree = "<group>"; };
 		D053FF3C22DC9FCC002982C6 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D053FF4122DC9FCC002982C6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -74,7 +76,6 @@
 		D053FF6122DCA2C7002982C6 /* Signal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signal.swift; sourceTree = "<group>"; };
 		D053FF6222DCA2C7002982C6 /* PlainSwapCodec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlainSwapCodec.swift; sourceTree = "<group>"; };
 		D053FF6322DCA2C7002982C6 /* TransactionRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionRecord.swift; sourceTree = "<group>"; };
-		D053FF6422DCA2C7002982C6 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = "../../../bitcoin-kit-ios/Demo/Demo/AppDelegate.swift"; sourceTree = "<group>"; };
 		D053FF6522DCA2C7002982C6 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		D053FF6622DCA2C8002982C6 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		D053FF6822DCA2C8002982C6 /* BitcoinCashAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitcoinCashAdapter.swift; sourceTree = "<group>"; };
@@ -95,6 +96,7 @@
 		D053FF7A22DCA2C8002982C6 /* SwapController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SwapController.xib; sourceTree = "<group>"; };
 		D053FF7B22DCA2C8002982C6 /* SendController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendController.swift; sourceTree = "<group>"; };
 		D053FF7C22DCA2C8002982C6 /* ReceiveController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReceiveController.xib; sourceTree = "<group>"; };
+		D06A506A247D2AE300230602 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,10 +138,10 @@
 		D053FF3E22DC9FCC002982C6 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				D06A506A247D2AE300230602 /* AppDelegate.swift */,
 				D053FF6722DCA2C8002982C6 /* Adapters */,
 				D053FF6C22DCA2C8002982C6 /* Controllers */,
 				D053FF5F22DCA2C7002982C6 /* Core */,
-				D053FF6422DCA2C7002982C6 /* AppDelegate.swift */,
 				D053FF6622DCA2C8002982C6 /* Configuration.swift */,
 				D053FF6522DCA2C7002982C6 /* LaunchScreen.xib */,
 				D053FF4122DC9FCC002982C6 /* ViewController.swift */,
@@ -166,6 +168,7 @@
 				D053FF6122DCA2C7002982C6 /* Signal.swift */,
 				D053FF6222DCA2C7002982C6 /* PlainSwapCodec.swift */,
 				D053FF6322DCA2C7002982C6 /* TransactionRecord.swift */,
+				2FA5DF188B4AD5B5A04ECFA5 /* Extensions.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -349,10 +352,10 @@
 				D053FF7E22DCA2C8002982C6 /* Signal.swift in Sources */,
 				D053FF7F22DCA2C8002982C6 /* PlainSwapCodec.swift in Sources */,
 				D053FF9122DCA2C8002982C6 /* MainController.swift in Sources */,
+				D06A506B247D2AE300230602 /* AppDelegate.swift in Sources */,
 				D053FF8722DCA2C8002982C6 /* BaseAdapter.swift in Sources */,
 				D053FF7D22DCA2C8002982C6 /* Manager.swift in Sources */,
 				D053FF8C22DCA2C8002982C6 /* BalanceCell.swift in Sources */,
-				D053FF8122DCA2C8002982C6 /* AppDelegate.swift in Sources */,
 				D053FF9022DCA2C8002982C6 /* SwapController.swift in Sources */,
 				D053FF8E22DCA2C8002982C6 /* ReceiveController.swift in Sources */,
 				D053FF8322DCA2C8002982C6 /* Configuration.swift in Sources */,
@@ -360,6 +363,7 @@
 				D053FF9322DCA2C8002982C6 /* TransactionsController.swift in Sources */,
 				D053FF8922DCA2C8002982C6 /* BalanceController.swift in Sources */,
 				D053FF8022DCA2C8002982C6 /* TransactionRecord.swift in Sources */,
+				2FA5D6F0A098AC3AF7D5481B /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

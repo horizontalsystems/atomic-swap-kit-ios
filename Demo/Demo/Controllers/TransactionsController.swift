@@ -76,15 +76,15 @@ class TransactionsController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return transactions.count
+        transactions.count
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 220
+        CGFloat(TransactionCell.rowHeight(for: transactions[indexPath.row]))
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: String(describing: TransactionCell.self), for: indexPath)
+        tableView.dequeueReusableCell(withIdentifier: String(describing: TransactionCell.self), for: indexPath)
     }
 
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -102,7 +102,12 @@ class TransactionsController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        UIPasteboard.general.setValue(transactions[indexPath.row].transactionHash, forPasteboardType: "public.plain-text")
+        let transactionHash = transactions[indexPath.row].transactionHash
+
+        UIPasteboard.general.setValue(transactionHash, forPasteboardType: "public.plain-text")
+
+        print("Transaction Hash: \(transactionHash)")
+        print("Raw Transaction: \(currentAdapter?.rawTransaction(transactionHash: transactionHash) ?? "")")
 
         let alert = UIAlertController(title: "Success", message: "Transaction Hash copied", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel))
@@ -126,9 +131,9 @@ class TransactionsController: UITableViewController {
 
         loading = true
 
-        let fromHash = transactions.last?.transactionHash
+        let fromUid = transactions.last?.uid
 
-        currentAdapter?.transactionsSingle(fromHash: fromHash, limit: limit)
+        currentAdapter?.transactionsSingle(fromUid: fromUid, limit: limit)
                 .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
                 .observeOn(MainScheduler.instance)
                 .subscribe(onSuccess: { [weak self] transactions in

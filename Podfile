@@ -14,14 +14,14 @@ project 'AtomicSwapBitcoinProvider/AtomicSwapBitcoinProvider'
 target :AtomicSwapCore do
   project 'AtomicSwapCore/AtomicSwapCore'
 
-  pod 'HSCryptoKit', '~> 1.4'
+  pod 'OpenSslKit.swift', '~> 1.0'
   pod 'GRDB.swift', '~> 4.0'
 end
 
 target :AtomicSwapBitcoinProvider do
   project 'AtomicSwapBitcoinProvider/AtomicSwapBitcoinProvider'
 
-  pod 'HSCryptoKit', '~> 1.4'
+  pod 'OpenSslKit.swift', '~> 1.0'
   pod 'BitcoinCore.swift', git: 'https://github.com/horizontalsystems/bitcoin-kit-ios/'
   pod 'BitcoinKit.swift', git: 'https://github.com/horizontalsystems/bitcoin-kit-ios/'
   pod 'BitcoinCashKit.swift', git: 'https://github.com/horizontalsystems/bitcoin-kit-ios/'
@@ -33,6 +33,7 @@ target :Demo do
   pod 'RSSelectionMenu'
   pod 'HSHDWalletKit', '~> 1'
   pod 'RxSwift', '~> 5.0'
+  pod 'HsToolKit.swift', '~> 1'
 
   pod 'BitcoinCore.swift', git: 'https://github.com/horizontalsystems/bitcoin-kit-ios/'
   pod 'BitcoinKit.swift', git: 'https://github.com/horizontalsystems/bitcoin-kit-ios/'
