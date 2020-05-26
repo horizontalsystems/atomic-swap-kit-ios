@@ -6,8 +6,7 @@ class ReceiveController: UIViewController {
     private let disposeBag = DisposeBag()
 
     @IBOutlet weak var addressLabel: UILabel?
-    @IBOutlet weak var addressTypeControl: UISegmentedControl!
-    
+
     private var adapters = [BaseAdapter]()
     private let segmentedControl = UISegmentedControl()
 
@@ -19,8 +18,6 @@ class ReceiveController: UIViewController {
         addressLabel?.layer.cornerRadius = 8
         addressLabel?.clipsToBounds = true
 
-        segmentedControl.addTarget(self, action: #selector(onSegmentChanged), for: .valueChanged)
-
         Manager.shared.adapterSignal
                 .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
                 .observeOn(MainScheduler.instance)
@@ -30,6 +27,7 @@ class ReceiveController: UIViewController {
                 .disposed(by: disposeBag)
 
         updateAdapters()
+        segmentedControl.addTarget(self, action: #selector(onSegmentChanged), for: .valueChanged)
     }
 
     private func updateAdapters() {
@@ -45,9 +43,6 @@ class ReceiveController: UIViewController {
 
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.sendActions(for: .valueChanged)
-
-        addressTypeControl.selectedSegmentIndex = 0
-        addressTypeControl.isHidden = false
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -56,32 +51,19 @@ class ReceiveController: UIViewController {
         segmentedControl.sendActions(for: .valueChanged)
     }
 
-    func type(segment: Int) -> ScriptType {
-        switch segment {
-        case 1: return .p2wpkh
-        case 2: return .p2wpkhSh
-        default: return .p2pkh
-        }
-    }
-
     @objc func onSegmentChanged() {
-        addressTypeControl.isHidden = segmentedControl.selectedSegmentIndex != 0
-        addressTypeControl.selectedSegmentIndex = 0
         updateAddress()
 
-        if let adapter = currentAdapter {
-            print(adapter.debugInfo)
-        }
+        currentAdapter?.printDebugs()
     }
     func updateAddress() {
-        let segment = addressTypeControl.selectedSegmentIndex
-        addressLabel?.text = "  \(currentAdapter?.receiveAddress(for: type(segment: segment)) ?? "")  "
+        addressLabel?.text = "  \(currentAdapter?.receiveAddress() ?? "")  "
     }
 
     @IBAction func onAddressTypeChanged(_ sender: Any) {
         updateAddress()
     }
-    
+
     @IBAction func copyToClipboard() {
         if let address = addressLabel?.text?.trimmingCharacters(in: .whitespaces) {
             UIPasteboard.general.setValue(address, forPasteboardType: "public.plain-text")

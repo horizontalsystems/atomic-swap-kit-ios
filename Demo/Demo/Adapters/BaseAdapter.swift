@@ -2,13 +2,11 @@ import BitcoinCore
 import RxSwift
 
 class BaseAdapter {
-    var feeRate: Int { return 10 }
+    var feeRate: Int { 3 }
     private let coinRate: Decimal = pow(10, 8)
 
     let name: String
     let coinCode: String
-
-    var changeableAddressType: Bool { return false }
 
     private let abstractKit: AbstractKit
 
@@ -17,10 +15,6 @@ class BaseAdapter {
     let balanceSignal = Signal()
     let transactionsSignal = Signal()
 
-    var debugInfo: String {
-        return abstractKit.debugInfo
-    }
-
     init(name: String, coinCode: String, abstractKit: AbstractKit) {
         self.name = name
         self.coinCode = coinCode
@@ -28,23 +22,96 @@ class BaseAdapter {
     }
 
     func transactionRecord(fromTransaction transaction: TransactionInfo) -> TransactionRecord {
-        let fromAddresses = transaction.from.map {
-            TransactionAddress(address: $0.address, mine: $0.mine)
+        var myInputsTotalValue: Int = 0
+        var myOutputsTotalValue: Int = 0
+        var myChangeOutputsTotalValue: Int = 0
+        var outputsTotalValue: Int = 0
+        var allInputsMine = true
+
+        var type: TransactionType
+        var from = [TransactionInputOutput]()
+        var to = [TransactionInputOutput]()
+
+        for input in transaction.inputs {
+            if input.mine {
+                if let value = input.value {
+                    myInputsTotalValue += value
+                }
+            } else {
+                allInputsMine = false
+            }
+
+            from.append(TransactionInputOutput(
+                    mine: input.mine, address: input.address, value: input.value,
+                    changeOutput: false, pluginId: nil, pluginData: nil
+            ))
+
+            //            if anyNotMineFromAddress == nil, let address = input.address {
+            //                anyNotMineFromAddress = input.address
+            //            }
         }
 
-        let toAddresses = transaction.to.map {
-            TransactionAddress(address: $0.address, mine: $0.mine)
+        for output in transaction.outputs {
+            guard output.value > 0 else {
+                continue
+            }
+
+            outputsTotalValue += output.value
+
+            if output.mine {
+                myOutputsTotalValue += output.value
+                if output.changeOutput {
+                    myChangeOutputsTotalValue += output.value
+                }
+            }
+
+            to.append(TransactionInputOutput(
+                    mine: output.mine, address: output.address, value: output.value,
+                    changeOutput: output.changeOutput, pluginId: output.pluginId, pluginData: output.pluginData
+            ))
+
+            //            if let pluginId = output.pluginId, pluginId == HodlerPlugin.id,
+            //               let hodlerOutputData = output.pluginData as? HodlerOutputData,
+            //               let approximateUnlockTime = hodlerOutputData.approximateUnlockTime {
+            //
+            //                lockInfo = (lockedUntil: Date(timeIntervalSince1970: Double(approximateUnlockTime)), originalAddress: hodlerOutputData.addressString)
+            //            }
+            //            if anyNotMineToAddress == nil, let address = output.address {
+            //                anyNotMineToAddress = output.address
+            //            }
         }
+
+        var amount = myOutputsTotalValue - myInputsTotalValue
+
+        if allInputsMine, let fee = transaction.fee {
+            amount += fee
+        }
+
+        if amount > 0 {
+            type = .incoming
+        } else if amount < 0 {
+            type = .outgoing
+        } else {
+            type = .sentToSelf(enteredAmount: Decimal(myOutputsTotalValue - myChangeOutputsTotalValue) / coinRate)
+        }
+
+        //        let from = type == .incoming ? anyNotMineFromAddress : nil
+        //        let to = type == .outgoing ? anyNotMineToAddress : nil
 
         return TransactionRecord(
+                uid: transaction.uid,
                 transactionHash: transaction.transactionHash,
                 transactionIndex: transaction.transactionIndex,
-                amount: Decimal(transaction.amount) / coinRate,
-                timestamp: Double(transaction.timestamp),
-                from: fromAddresses,
-                to: toAddresses,
+                interTransactionIndex: 0,
+                status: TransactionStatus(rawValue: transaction.status.rawValue) ?? TransactionStatus.new,
+                type: type,
                 blockHeight: transaction.blockHeight,
-                transactionExtraType: nil
+                amount: Decimal(abs(amount)) / coinRate,
+                fee: transaction.fee.map { Decimal($0) / coinRate },
+                date: Date(timeIntervalSince1970: Double(transaction.timestamp)),
+                from: from,
+                to: to,
+                conflictingHash: transaction.conflictingHash
         )
     }
 
@@ -55,10 +122,10 @@ class BaseAdapter {
         return NSDecimalNumber(decimal: coinValue).rounding(accordingToBehavior: handler).intValue
     }
 
-    func transactionsSingle(fromHash: String?, limit: Int) -> Single<[TransactionRecord]> {
-        return abstractKit.transactions(fromHash: fromHash, limit: limit)
+    func transactionsSingle(fromUid: String?, limit: Int) -> Single<[TransactionRecord]> {
+        abstractKit.transactions(fromUid: fromUid, limit: limit)
                 .map { [weak self] transactions -> [TransactionRecord] in
-                    return transactions.compactMap {
+                    transactions.compactMap {
                         self?.transactionRecord(fromTransaction: $0)
                     }
                 }
@@ -69,41 +136,47 @@ class BaseAdapter {
 extension BaseAdapter {
 
     var lastBlockObservable: Observable<Void> {
-        return lastBlockSignal.asObservable().throttle(DispatchTimeInterval.milliseconds(200), scheduler: ConcurrentDispatchQueueScheduler(qos: .userInitiated))
+        lastBlockSignal.asObservable().throttle(DispatchTimeInterval.milliseconds(200), scheduler: ConcurrentDispatchQueueScheduler(qos: .userInitiated))
     }
 
     var syncStateObservable: Observable<Void> {
-        return syncStateSignal.asObservable().throttle(DispatchTimeInterval.milliseconds(200), scheduler: ConcurrentDispatchQueueScheduler(qos: .userInitiated))
+        syncStateSignal.asObservable().throttle(DispatchTimeInterval.milliseconds(200), scheduler: ConcurrentDispatchQueueScheduler(qos: .userInitiated))
     }
 
     var balanceObservable: Observable<Void> {
-        return balanceSignal.asObservable()
+        balanceSignal.asObservable()
     }
 
     var transactionsObservable: Observable<Void> {
-        return transactionsSignal.asObservable()
+        transactionsSignal.asObservable()
     }
 
     func start() {
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.abstractKit.start()
-        }
+        self.abstractKit.start()
     }
 
-    var balance: Decimal {
-        return Decimal(abstractKit.balance) / coinRate
+    func refresh() {
+        self.abstractKit.start()
+    }
+
+    var spendableBalance: Decimal {
+        Decimal(abstractKit.balance.spendable) / coinRate
+    }
+
+    var unspendableBalance: Decimal {
+        Decimal(abstractKit.balance.unspendable) / coinRate
     }
 
     var lastBlockInfo: BlockInfo? {
-        return abstractKit.lastBlockInfo
+        abstractKit.lastBlockInfo
     }
 
     var syncState: BitcoinCore.KitState {
-        return abstractKit.syncState
+        abstractKit.syncState
     }
 
-    func receiveAddress(for type: ScriptType) -> String {
-        return abstractKit.receiveAddress(for: type)
+    func receiveAddress() -> String {
+        abstractKit.receiveAddress()
     }
 
     func validate(address: String) throws {
@@ -116,12 +189,12 @@ extension BaseAdapter {
         }
     }
 
-    func sendSingle(to address: String, amount: Decimal) -> Single<Void> {
+    func sendSingle(to address: String, amount: Decimal, sortType: TransactionDataSortType, pluginData: [UInt8: IPluginData] = [:]) -> Single<Void> {
         let satoshiAmount = convertToSatoshi(value: amount)
 
         return Single.create { [unowned self] observer in
             do {
-                _ = try self.abstractKit.send(to: address, value: satoshiAmount, feeRate: self.feeRate)
+                _ = try self.abstractKit.send(to: address, value: satoshiAmount, feeRate: self.feeRate, sortType: sortType, pluginData: pluginData)
                 observer(.success(()))
             } catch {
                 observer(.error(error))
@@ -131,20 +204,41 @@ extension BaseAdapter {
         }
     }
 
-    func availableBalance(for address: String?) -> Decimal {
-        return max(0, balance - fee(for: balance, address: address))
+    func availableBalance(for address: String?, pluginData: [UInt8: IPluginData] = [:]) -> Decimal {
+        let amount = (try? abstractKit.maxSpendableValue(toAddress: address, feeRate: feeRate, pluginData: pluginData)) ?? 0
+        return Decimal(amount) / coinRate
     }
 
-    func fee(for value: Decimal, address: String?) -> Decimal {
+    func maxSpendLimit(pluginData: [UInt8: IPluginData]) -> Int? {
         do {
-            let amount = convertToSatoshi(value: value)
-            let fee = try abstractKit.fee(for: amount, toAddress: address, senderPay: true, feeRate: feeRate)
-            return Decimal(fee) / coinRate
-        } catch BitcoinCoreErrors.UnspentOutputSelection.notEnough(let maxFee) {
-            return Decimal(maxFee) / coinRate
+            return try abstractKit.maxSpendLimit(pluginData: pluginData)
         } catch {
             return 0
         }
+    }
+
+    func minSpendableAmount(for address: String?) -> Decimal {
+        Decimal(abstractKit.minSpendableValue(toAddress: address)) / coinRate
+    }
+
+    func fee(for value: Decimal, address: String?, pluginData: [UInt8: IPluginData] = [:]) -> Decimal {
+        do {
+            let amount = convertToSatoshi(value: value)
+            let fee = try abstractKit.fee(for: amount, toAddress: address, feeRate: feeRate, pluginData: pluginData)
+            return Decimal(fee) / coinRate
+        } catch {
+            return 0
+        }
+    }
+
+    func printDebugs() {
+        print(abstractKit.debugInfo)
+        print()
+        print(abstractKit.statusInfo)
+    }
+
+    func rawTransaction(transactionHash: String) -> String? {
+        abstractKit.rawTransaction(transactionHash: transactionHash)
     }
 
 }

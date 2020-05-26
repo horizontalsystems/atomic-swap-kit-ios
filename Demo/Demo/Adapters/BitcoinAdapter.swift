@@ -1,14 +1,14 @@
 import BitcoinKit
 import BitcoinCore
+import HdWalletKit
 import RxSwift
 
 class BitcoinAdapter: BaseAdapter {
     let bitcoinKit: BitcoinKit
-    override var changeableAddressType: Bool { return true }
 
-    init(words: [String], testMode: Bool, syncMode: BitcoinCore.SyncMode) {
+    init(words: [String], bip: Bip, testMode: Bool, syncMode: BitcoinCore.SyncMode) {
         let networkType: BitcoinKit.NetworkType = testMode ? .testNet : .mainNet
-        bitcoinKit = try! BitcoinKit(withWords: words, walletId: "walletId", syncMode: syncMode, networkType: networkType, minLogLevel: Configuration.shared.minLogLevel)
+        bitcoinKit = try! BitcoinKit(withWords: words, bip: bip, walletId: "walletId", syncMode: syncMode, networkType: networkType, confirmationsThreshold: 1, minLogLevel: Configuration.shared.minLogLevel)
 
         super.init(name: "Bitcoin", coinCode: "BTC", abstractKit: bitcoinKit)
         bitcoinKit.delegate = self
@@ -29,7 +29,7 @@ extension BitcoinAdapter: BitcoinCoreDelegate {
         transactionsSignal.notify()
     }
 
-    func balanceUpdated(balance: Int) {
+    func balanceUpdated(balance: BalanceInfo) {
         balanceSignal.notify()
     }
 

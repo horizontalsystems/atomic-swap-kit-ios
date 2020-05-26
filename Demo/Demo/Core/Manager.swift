@@ -45,7 +45,7 @@ class Manager {
 
     private func initAdapters(words: [String], syncMode: BitcoinCore.SyncMode) {
         let configuration = Configuration.shared
-        let bitcoinAdapter = BitcoinAdapter(words: words, testMode: configuration.testNet, syncMode: syncMode)
+        let bitcoinAdapter = BitcoinAdapter(words: words, bip: .bip44, testMode: configuration.testNet, syncMode: syncMode)
         let bitcoinCashAdapter = BitcoinCashAdapter(words: words, testMode: configuration.testNet, syncMode: .newWallet)
 //        let dashAdapter = DashAdapter(words: words, testMode: configuration.testNet, syncMode: syncMode)
 

@@ -1,4 +1,4 @@
-import HSCryptoKit
+import OpenSslKit
 
 class SwapFactory {
     enum FactoryError: Error {
@@ -46,7 +46,7 @@ extension SwapFactory : ISwapFactory {
                 id: id.reduce("") { $0 + String(format: "%02x", $1) }, state: Swap.State.requested,
                 initiator: true, initiatorCoinCode: initiatorCoinCode, responderCoinCode: responderCoinCode,
                 rate: rate, amount: amount,
-                secretHash: CryptoKit.sha256(secret), secret: secret,
+                secretHash: Kit.sha256(secret), secret: secret,
                 initiatorTimestamp: nil, responderTimestamp: nil,
                 refundPKId: refundPublicKey.id, redeemPKId: redeemPublicKey.id,
                 initiatorRefundPKH: refundPublicKey.keyHash, initiatorRedeemPKH: redeemPublicKey.keyHash,

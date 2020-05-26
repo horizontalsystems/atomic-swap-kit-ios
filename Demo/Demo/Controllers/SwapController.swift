@@ -104,6 +104,7 @@ class SwapController: UIViewController {
         do {
             let request = try swapKit.createSwapRequest(haveCoinCode: haveCoinAdapter.coinCode, wantCoinCode: wantCoinAdapter.coinCode, rate: Double(truncating: rate as NSNumber), amount: Double(truncating: value as NSNumber))
             requestStr = codec.getString(from: request)
+            self.view.endEditing(true)
         } catch {
             show(error: error.localizedDescription)
             return
@@ -123,6 +124,7 @@ class SwapController: UIViewController {
             let request = try codec.getRequest(from: requestStr)
             let response = try swapKit.createSwapResponse(from: request)
             responseStr = codec.getString(from: response)
+            self.view.endEditing(true)
         } catch {
             show(error: error.localizedDescription)
             return
@@ -140,6 +142,7 @@ class SwapController: UIViewController {
         do {
             let response = try codec.getResponse(from: responseStr)
             try swapKit.initiateSwap(from: response)
+            self.view.endEditing(true)
         } catch {
             show(error: error.localizedDescription)
             return
@@ -151,13 +154,7 @@ class SwapController: UIViewController {
     }
     
     private func show(error: String) {
-        let alert = UIAlertController(title: "Send Error", message: error, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
-        present(alert, animated: true)
-    }
-    
-    private func showSuccess(address: String, amount: Decimal) {
-        let alert = UIAlertController(title: "Success", message: "\(amount.description) sent to \(address)", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel))
         present(alert, animated: true)
     }

@@ -1,4 +1,4 @@
-import HSCryptoKit
+import OpenSslKit
 import BitcoinCore
 import AtomicSwapCore
 
@@ -22,7 +22,7 @@ public class BitcoinSwapBlockchain: ISwapBlockchain {
     }
 
     public var synced: Bool {
-        return (kit?.syncState ?? .notSynced) == .synced
+        (kit?.syncState ?? .notSynced(error: BitcoinCore.StateError.notStarted)) == .synced
     }
 
     public func changePublicKey() throws -> AtomicSwapCore.PublicKey {
@@ -46,16 +46,16 @@ public class BitcoinSwapBlockchain: ISwapBlockchain {
 
     public func watchBailTransaction(withRedeemKeyHash redeemKeyHash: Data, refundKeyHash: Data, secretHash: Data, timestamp: Int) {
         let redeemScript = scriptBuilder.redeemScript(redeemKeyHash: redeemKeyHash, refundKeyHash: refundKeyHash, secretHash: secretHash, timestamp: timestamp)
-        let scriptHash = CryptoKit.sha256ripemd160(redeemScript)
+        let scriptHash = Kit.sha256ripemd160(redeemScript)
 
         kit?.watch(transaction: BitcoinCore.TransactionFilter.p2shOutput(scriptHash: scriptHash), delegate: self)
     }
 
     public func sendBailTransaction(withRedeemKeyHash redeemKeyHash: Data, refundKeyHash: Data, secretHash: Data, timestamp: Int, amount: Double) throws -> IBailTransaction {
         let redeemScript = scriptBuilder.redeemScript(redeemKeyHash: redeemKeyHash, refundKeyHash: refundKeyHash, secretHash: secretHash, timestamp: timestamp)
-        let scriptHash = CryptoKit.sha256ripemd160(redeemScript)
+        let scriptHash = Kit.sha256ripemd160(redeemScript)
 
-        guard let transaction = try kit?.send(to: scriptHash, scriptType: .p2sh, value: Int(amount * BitcoinSwapBlockchain.satoshiPerBitcoin), feeRate: 42) else {
+        guard let transaction = try kit?.send(to: scriptHash, scriptType: .p2sh, value: Int(amount * BitcoinSwapBlockchain.satoshiPerBitcoin), feeRate: 42, sortType: .shuffle) else {
             throw BitcoinKitSwapBlockchainError.transactionNotSent
         }
 
@@ -82,7 +82,7 @@ public class BitcoinSwapBlockchain: ISwapBlockchain {
         }
 
         let redeemScript = scriptBuilder.redeemScript(redeemKeyHash: redeemKeyHash, refundKeyHash: refundKeyHash, secretHash: secretHash, timestamp: timestamp)
-        let scriptHash = CryptoKit.sha256ripemd160(redeemScript)
+        let scriptHash = Kit.sha256ripemd160(redeemScript)
 
         guard let kit = self.kit else {
             return
@@ -93,11 +93,15 @@ public class BitcoinSwapBlockchain: ISwapBlockchain {
                 withValue: transaction.amount, index: transaction.outputIndex, lockingScript: transaction.lockingScript,
                 transactionHash: transaction.transactionHash, type: .p2sh, redeemScript: redeemScript, keyHash: scriptHash, publicKey: publicKey
         )
-        let unspentOutput = UnspentOutput(output: output, publicKey: publicKey, transaction: Transaction(version: 0, lockTime: 0, timestamp: nil))
+        output.signatureScriptFunction = { data in
+            let signature = data[0]
+            let publicKey = data[1]
 
-        _ = try kit.redeem(from: unspentOutput, to: kit.receiveAddress(for: .p2pkh), feeRate: 43) { signature, publicKey in
             return OpCode.push(signature) + OpCode.push(publicKey) + OpCode.push(secret) + OpCode.push(1) + OpCode.push(redeemScript)
         }
+
+        let unspentOutput = UnspentOutput(output: output, publicKey: publicKey, transaction: Transaction(version: 0, lockTime: 0, timestamp: nil))
+        _ = try kit.redeem(from: unspentOutput, to: kit.receiveAddress(), feeRate: 43, sortType: .shuffle)
     }
 
     public func bailTransaction(from data: Data) throws -> IBailTransaction {
